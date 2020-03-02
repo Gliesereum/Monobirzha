@@ -1,27 +1,39 @@
 import React from 'react';
+import { Block, GalioProvider } from 'galio-framework';
 import { StyleSheet, Text, View } from 'react-native';
 
+import AppContainer from './navigation/Screens';
+import { monobirzhaTheme } from './constants'
+
 export default function App() {
+  console.log(AppContainer);
   return (
-    <View style={styles.container}>
-      <View style={styles.containerBrand}>
-        <View style={styles.border}>
-          <Text style={styles.mono}>
-            mono
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.logo}>
-            birzha
-          </Text>
-        </View>
-      </View>
-      <View>
-        <Text style={styles.desc}>
-          Украинская Биржа
-        </Text>
-      </View>
-    </View>
+    <GalioProvider theme={monobirzhaTheme}>
+      <Block flex>
+        <AppContainer isLoggedIn={true} />
+      </Block>
+      {/*<Block flex>*/}
+      {/*  <View style={styles.container}>*/}
+      {/*    <View style={styles.containerBrand}>*/}
+      {/*      <View style={styles.border}>*/}
+      {/*        <Text style={styles.mono}>*/}
+      {/*          mono*/}
+      {/*        </Text>*/}
+      {/*      </View>*/}
+      {/*      <View>*/}
+      {/*        <Text style={styles.logo}>*/}
+      {/*          birzha*/}
+      {/*        </Text>*/}
+      {/*      </View>*/}
+      {/*    </View>*/}
+      {/*    <View>*/}
+      {/*      <Text style={styles.desc}>*/}
+      {/*        Украинская Биржа*/}
+      {/*      </Text>*/}
+      {/*    </View>*/}
+      {/*  </View>*/}
+      {/*</Block>*/}
+    </GalioProvider>
   );
 }
 
