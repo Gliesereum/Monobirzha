@@ -42,9 +42,10 @@ function TabsStackScreen() {
       backBehavior="history"
       tabBarOptions={{
         labelStyle: {
-          fontSize: 16,
+          fontSize: 12,
         },
         style: {
+          borderTopWidth: 0,
           backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
         },
         activeTintColor: monobirzhaTheme.COLORS.ACTIVE
@@ -60,7 +61,7 @@ function TabsStackScreen() {
               <FontAwesome
                 style={{ alignSelf:'center' }}
                 name="list"
-                size={32}
+                size={18}
                 color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>
@@ -76,7 +77,7 @@ function TabsStackScreen() {
               <FontAwesome
                 style={{ alignSelf:'center' }}
                 name="briefcase"
-                size={32}
+                size={18}
                 color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>
@@ -92,7 +93,7 @@ function TabsStackScreen() {
               <FontAwesome
                 style={{ alignSelf:'center' }}
                 name="credit-card-alt"
-                size={32}
+                size={18}
                 color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>

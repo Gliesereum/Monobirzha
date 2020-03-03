@@ -7,8 +7,8 @@ import {
   ActivityIndicator
 } from 'react-native'
 import { GalioProvider } from 'galio-framework';
-import {connect} from 'react-redux';
-import {startApp} from './state/actions/startApp';
+import { connect } from 'react-redux';
+import { startApp } from './state/actions/startApp';
 import Loading from "./patch/Loading";
 
 import { monobirzhaTheme } from './constants';

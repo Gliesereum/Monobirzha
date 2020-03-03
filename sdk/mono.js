@@ -16,6 +16,7 @@ class MonoSDK {
     this.urls = {
       STATUS_API: `${this.config.server}/api/v1/status`,
       CHECK_PHONE: `${this.config.server}/api/v1/patch/check/phone?q=`,
+      GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
     };
 
     this.storage = {
