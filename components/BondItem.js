@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import { Text } from 'galio-framework';
 import { Ionicons } from '@expo/vector-icons';
 
-import monobirzhaTheme from '../constants/Theme'
+import monoTheme from '../constants/Theme'
 
 const { height, width } = Dimensions.get('window');
 
@@ -19,7 +19,7 @@ export default function ListItem({ item, onPressItem, onElectItem }) {
           style={{ alignSelf:'center' }}
           name={item.isFavorite ? 'ios-star' : 'ios-star-outline'}
           size={32}
-          color={monobirzhaTheme.COLORS[item.isFavorite ? 'ACTIVE' : 'PRIMARY']}
+          color={monoTheme.COLORS[item.isFavorite ? 'ACTIVE' : 'PRIMARY']}
         />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 8,
-    padding: monobirzhaTheme.SIZES.BASE,
+    padding: monoTheme.SIZES.BASE,
     borderWidth: 1,
-    borderColor: monobirzhaTheme.COLORS.NEUTRAL,
+    borderColor: monoTheme.COLORS.NEUTRAL,
     borderRadius: 5,
   },
   infoBox: {
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   infoTitle: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.PRIMARY,
     fontSize: 18,
     marginBottom: 8,
   },
   infoDescr: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.PRIMARY,
     fontSize: 14,
   },
 });

@@ -4,7 +4,7 @@ import { Text, theme } from 'galio-framework';
 
 import ListItem from '../components/BondItem';
 
-import { monobirzhaTheme } from '../constants';
+import { monoTheme } from '../constants';
 
 const { width } = Dimensions.get('window');
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingTop: theme.SIZES.BASE * 2,
     flex: 1,
     width: width,
-    backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+    backgroundColor: monoTheme.COLORS.SECONDARY,
   },
   innerPadding: {
     paddingHorizontal: theme.SIZES.BASE,

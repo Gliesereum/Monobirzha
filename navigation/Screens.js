@@ -12,7 +12,7 @@ import Account from '../screens/Account';
 import BondList from '../screens/BondList';
 import SignIn from '../screens/SignIn';
 
-import monobirzhaTheme from '../constants/Theme';
+import monoTheme from '../constants/Theme';
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
@@ -26,7 +26,8 @@ const SIGN_IN_NAMES = {
 
 const BottomTab = createBottomTabNavigator();
 
-const BottomTabNavigation = <BottomTab.Navigator
+const BottomTabNavigation = (
+  <BottomTab.Navigator
     initialRouteName={BOTTOM_TABS.LIST_TAB}
     backBehavior="history"
     tabBarOptions={{
@@ -35,9 +36,9 @@ const BottomTabNavigation = <BottomTab.Navigator
       },
       style: {
         borderTopWidth: 0,
-        backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+        backgroundColor: monoTheme.COLORS.SECONDARY,
       },
-      activeTintColor: monobirzhaTheme.COLORS.ACTIVE
+      activeTintColor: monoTheme.COLORS.ACTIVE
     }}
   >
     <BottomTab.Screen
@@ -51,7 +52,7 @@ const BottomTabNavigation = <BottomTab.Navigator
               style={{ alignSelf:'center' }}
               name="list"
               size={18}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
       }}
@@ -67,7 +68,7 @@ const BottomTabNavigation = <BottomTab.Navigator
               style={{ alignSelf:'center' }}
               name="briefcase"
               size={18}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
       }}
@@ -83,23 +84,31 @@ const BottomTabNavigation = <BottomTab.Navigator
               style={{ alignSelf:'center' }}
               name="credit-card-alt"
               size={18}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
       }}
     />
-  </BottomTab.Navigator>;
+  </BottomTab.Navigator>
+);
 
 const SignInStack = createStackNavigator();
 
-const SignInNavigation = <SignInStack.Navigator>
-    <SignInStack.Screen name={SIGN_IN_NAMES.SIGN_IN} component={SignIn} />
-  </SignInStack.Navigator>;
+const SignInNavigation = (
+  <SignInStack.Navigator headerMode={'none'}>
+    <SignInStack.Screen
+      name={SIGN_IN_NAMES.SIGN_IN}
+      component={SignIn}
+    />
+  </SignInStack.Navigator>
+);
 
 const AppContainer = ({ isLoggedIn }) => {
-  return <NavigationContainer>
+  return (
+    <NavigationContainer>
       {isLoggedIn ? BottomTabNavigation : SignInNavigation}
-    </NavigationContainer>;
+    </NavigationContainer>
+  );
 };
 
 export default AppContainer;
