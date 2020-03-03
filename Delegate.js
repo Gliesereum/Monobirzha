@@ -6,9 +6,13 @@ import {
   StatusBar,
   ActivityIndicator
 } from 'react-native'
+import { GalioProvider } from 'galio-framework';
 import {connect} from 'react-redux';
 import {startApp} from './state/actions/startApp';
 import Loading from "./patch/Loading";
+
+import { monobirzhaTheme } from './constants';
+import AppContainer from './navigation/Screens';
 
 class Delegate extends Component {
 
@@ -19,7 +23,7 @@ class Delegate extends Component {
   render() {
     const {root} = this.props.mono;
     return(
-      <Fragment>
+      <GalioProvider theme={monobirzhaTheme}>
         <StatusBar barStyle="light-content"/>
         {root.loading ? (
           <View style={styles.root}>
@@ -29,29 +33,9 @@ class Delegate extends Component {
             />
           </View>
         ) : (
-          <View style={styles.root}>
-            <View style={styles.container}>
-              <View style={styles.containerBrand}>
-                <View style={styles.border}>
-                  <Text style={styles.mono}>
-                    mono
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.logo}>
-                    birzha
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <Text style={styles.desc}>
-                  Украинская Биржа
-                </Text>
-              </View>
-            </View>
-          </View>
+          <AppContainer isLoggedIn={true} />
         )}
-      </Fragment>
+      </GalioProvider>
     )
   }
 }

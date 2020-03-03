@@ -8,7 +8,7 @@ const store = createReduxStore(reducers);
 function App() {
   return (
     <Provider store={store}>
-      <Delegate/>
+      <Delegate />
     </Provider>
   );
 }
