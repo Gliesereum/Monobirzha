@@ -17,9 +17,22 @@ export function startApp() {
       const legalToken = await sdk.storage.getStorage('LegalToken');
 
       if(legalToken){
+        const account = await sdk.api.getAccountInfo(legalToken)
+
+        console.log(account);
+
+        await dispatch({
+          type: Types.auth.ACCOUNT,
+          payload: {
+            bankIdAccount: account.response
+          }
+        });
+
         await dispatch({
           type: Types.start.LEGAL,
-          payload: legalToken
+          payload: {
+            token: legalToken
+          }
         });
       }
 

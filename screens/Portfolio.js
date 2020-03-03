@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { monoTheme } from '../constants';
-
 class Portfolio extends Component {
   render() {
     return (
@@ -20,4 +18,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(state => state, {})(Portfolio);
+export default connect(state => state)(Portfolio);

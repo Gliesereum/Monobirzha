@@ -32,7 +32,7 @@ class BondList extends Component {
             // data={[{ name: 'Test Name', id: Date.now().toString(), description: 'Test Description', isFavorite: true }]} // items
             data={ovdpList.map(item => ({
               name: item.cpcode,
-              description: item.cpdescr,
+              description: item.emit_name,
               isFavorite: true,
               id: item.id,
             }))}

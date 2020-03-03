@@ -47,7 +47,7 @@ class SignIn extends Component {
               <Fragment>
                 <View style={{
                   marginTop: 40,
-                  height: Dimensions.get('window').height / 2.6
+                  height: Dimensions.get('window').height / 4
                 }}>
                   <Brand
                     leftText={'mono'}

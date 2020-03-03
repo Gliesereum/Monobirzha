@@ -13,8 +13,12 @@ export default createReducer({
     draft.ovdpList = ovdpList;
   },
 
-  [Types.start.LEGAL]: (draft, payload) => {
-    draft.auth.token = payload;
+  [Types.start.LEGAL]: (draft, {token}) => {
+    draft.auth.token = token;
+  },
+
+  [Types.auth.ACCOUNT]: (draft, {bankIdAccount}) => {
+    draft.auth.bankIdAccount = bankIdAccount;
   },
 
   [Types.start.ERROR]: (draft, payload) => {
@@ -58,6 +62,9 @@ export default createReducer({
 
   [Types.auth.FINISH_VERIFY_CODE]:
     draft => draft.auth.authLoading = false,
+
+  [Types.auth.LOG_OUT]:
+    draft => draft.auth.token = null,
 
 
 }, initState);
