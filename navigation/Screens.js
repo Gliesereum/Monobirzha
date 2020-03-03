@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { View } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
 import BondList from '../screens/BondList';
+import BondSingle from '../screens/BondSingle';
 import SignIn from '../screens/SignIn';
 
 import monobirzhaTheme from '../constants/Theme';
@@ -24,81 +24,101 @@ const SIGN_IN_NAMES = {
   SIGN_IN: 'Sign In',
 };
 
-const BottomTab = createBottomTabNavigator();
-
-const BottomTabNavigation = <BottomTab.Navigator
-    initialRouteName={BOTTOM_TABS.LIST_TAB}
-    backBehavior="history"
-    tabBarOptions={{
-      labelStyle: {
-        fontSize: 16,
-      },
-      style: {
-        backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
-      },
-      activeTintColor: monobirzhaTheme.COLORS.ACTIVE
-    }}
-  >
-    <BottomTab.Screen
-      name={BOTTOM_TABS.LIST_TAB}
-      component={BondList}
-      options={{
-        tabBarLabel: () => {},
-        tabBarIcon: ({ focused }) =>
-          <View style={{ marginTop: 20 }}>
-            <FontAwesome
-              style={{ alignSelf:'center' }}
-              name="list"
-              size={32}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
-            />
-          </View>
-      }}
-    />
-    <BottomTab.Screen
-      name={BOTTOM_TABS.PORTFOLIO_TAB}
-      component={Portfolio}
-      options={{
-        tabBarLabel: () => {},
-        tabBarIcon: ({ focused }) =>
-          <View style={{ marginTop: 20 }}>
-            <FontAwesome
-              style={{ alignSelf:'center' }}
-              name="briefcase"
-              size={32}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
-            />
-          </View>
-      }}
-    />
-    <BottomTab.Screen
-      name={BOTTOM_TABS.ACCOUNT_TAB}
-      component={Account}
-      options={{
-        tabBarLabel: () => {},
-        tabBarIcon: ({ focused }) =>
-          <View style={{ marginTop: 20 }}>
-            <FontAwesome
-              style={{ alignSelf:'center' }}
-              name="credit-card-alt"
-              size={32}
-              color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
-            />
-          </View>
-      }}
-    />
-  </BottomTab.Navigator>;
-
 const SignInStack = createStackNavigator();
+function SignInNavigation() {
+  return (
+    <SignInStack.Navigator>
+      <SignInStack.Screen name={SIGN_IN_NAMES.SIGN_IN} component={SignIn} />
+    </SignInStack.Navigator>
+  );
+}
 
-const SignInNavigation = <SignInStack.Navigator>
-    <SignInStack.Screen name={SIGN_IN_NAMES.SIGN_IN} component={SignIn} />
-  </SignInStack.Navigator>;
 
-const AppContainer = ({ isLoggedIn }) => {
-  return <NavigationContainer>
-      {isLoggedIn ? BottomTabNavigation : SignInNavigation}
-    </NavigationContainer>;
-};
+const TabsStack = createBottomTabNavigator();
+function TabsStackScreen() {
+  return (
+    <TabsStack.Navigator
+      initialRouteName={BOTTOM_TABS.LIST_TAB}
+      backBehavior="history"
+      tabBarOptions={{
+        labelStyle: {
+          fontSize: 16,
+        },
+        style: {
+          backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+        },
+        activeTintColor: monobirzhaTheme.COLORS.ACTIVE
+      }}
+    >
+      <TabsStack.Screen
+        name={BOTTOM_TABS.LIST_TAB}
+        component={BondList}
+        options={{
+          tabBarLabel: () => {},
+          tabBarIcon: ({ focused }) =>
+            <View style={{ marginTop: 20 }}>
+              <FontAwesome
+                style={{ alignSelf:'center' }}
+                name="list"
+                size={32}
+                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              />
+            </View>
+        }}
+      />
+      <TabsStack.Screen
+        name={BOTTOM_TABS.PORTFOLIO_TAB}
+        component={Portfolio}
+        options={{
+          tabBarLabel: () => {},
+          tabBarIcon: ({ focused }) =>
+            <View style={{ marginTop: 20 }}>
+              <FontAwesome
+                style={{ alignSelf:'center' }}
+                name="briefcase"
+                size={32}
+                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              />
+            </View>
+        }}
+      />
+      <TabsStack.Screen
+        name={BOTTOM_TABS.ACCOUNT_TAB}
+        component={Account}
+        options={{
+          tabBarLabel: () => {},
+          tabBarIcon: ({ focused }) =>
+            <View style={{ marginTop: 20 }}>
+              <FontAwesome
+                style={{ alignSelf:'center' }}
+                name="credit-card-alt"
+                size={32}
+                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              />
+            </View>
+        }}
+      />
+    </TabsStack.Navigator>
+  );
+}
+
+const RootStack = createStackNavigator();
+
+function AppContainer ({ isLoggedIn }) {
+  return (
+    <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
+      {
+        !isLoggedIn ? (
+          <RootStack.Navigator mode="modal" headerMode="none">
+            <RootStack.Screen name="Tabs" component={TabsStackScreen} />
+            <RootStack.Screen name="BondModal" component={BondSingle}/>
+          </RootStack.Navigator>
+        ) : (
+          <SignInNavigation />
+        )
+      }
+    </NavigationContainer>
+  );
+}
 
 export default AppContainer;
