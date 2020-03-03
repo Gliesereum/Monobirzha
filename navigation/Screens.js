@@ -110,7 +110,7 @@ function AppContainer ({ isLoggedIn }) {
   return (
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
       {
-        !isLoggedIn ? (
+        isLoggedIn ? (
           <RootStack.Navigator mode="modal" headerMode="none">
             <RootStack.Screen name="Tabs" component={TabsStackScreen} />
             <RootStack.Screen name="BondModal" component={BondSingle}/>
