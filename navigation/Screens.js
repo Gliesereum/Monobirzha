@@ -31,9 +31,10 @@ const BottomTabNavigation = <BottomTab.Navigator
     backBehavior="history"
     tabBarOptions={{
       labelStyle: {
-        fontSize: 16,
+        fontSize: 12,
       },
       style: {
+        borderTopWidth: 0,
         backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
       },
       activeTintColor: monobirzhaTheme.COLORS.ACTIVE
@@ -49,7 +50,7 @@ const BottomTabNavigation = <BottomTab.Navigator
             <FontAwesome
               style={{ alignSelf:'center' }}
               name="list"
-              size={32}
+              size={18}
               color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
@@ -65,7 +66,7 @@ const BottomTabNavigation = <BottomTab.Navigator
             <FontAwesome
               style={{ alignSelf:'center' }}
               name="briefcase"
-              size={32}
+              size={18}
               color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
@@ -81,7 +82,7 @@ const BottomTabNavigation = <BottomTab.Navigator
             <FontAwesome
               style={{ alignSelf:'center' }}
               name="credit-card-alt"
-              size={32}
+              size={18}
               color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
             />
           </View>
