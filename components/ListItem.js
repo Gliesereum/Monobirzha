@@ -1,11 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import { Text } from 'galio-framework';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import monoTheme from '../constants/Theme'
-
-const { height, width } = Dimensions.get('window');
 
 export default function ListItem({ item, onPressItem, onElectItem }) {
   return (

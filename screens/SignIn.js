@@ -1,12 +1,13 @@
-import React, {Component, Fragment} from 'react';
-import {StyleSheet, View, TouchableOpacity, Dimensions} from "react-native"
-import { Block, Text } from 'galio-framework';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, View, TouchableOpacity, Dimensions, Text } from 'react-native'
 import { connect } from 'react-redux';
 import PhoneInput from 'react-native-phone-input';
 import CodeInput from 'react-native-confirmation-code-input';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {checkPhone, resetStatePhone, verifyCode} from "../state/actions/checkPhone";
-import Loading from "../patch/Loading";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import { checkPhone, resetStatePhone, verifyCode } from '../state/actions/checkPhone';
+import Loading from '../patch/Loading';
+import { monoTheme } from '../constants';
 
 class SignIn extends Component {
 
@@ -16,7 +17,7 @@ class SignIn extends Component {
     phoneValid: false,
     codeValid: false,
     modalVisible: false,
-    modalMessage: "Что то пошло не так!"
+    modalMessage: 'Что то пошло не так!'
   };
 
   _validPhone = e => {
@@ -99,7 +100,7 @@ class SignIn extends Component {
                         alignItems: "center",
                       }}>
                         <Text style={{
-                          color: this.state.phoneValid ? "#ffffff" : "#69758e",
+                          color: this.state.phoneValid ? monoTheme.COLORS.PRIMARY : "#69758e",
                           fontSize: 18
                         }}>
                           Отправить код
@@ -150,7 +151,7 @@ class SignIn extends Component {
                         alignItems: "center",
                       }}>
                         <Text style={{
-                          color: this.state.codeValid ? "#ffffff" : "#69758e",
+                          color: this.state.codeValid ? monoTheme.COLORS.PRIMARY : "#69758e",
                           fontSize: 20
                         }}>
                           Войти
@@ -158,7 +159,10 @@ class SignIn extends Component {
                       </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={{margin: 20}}>
-                      <Text style={{color: "#69758e", textAlign: "right", marginBottom: 20}} onPress={e => this._resetState()}>
+                      <Text
+                        style={{color: "#69758e", textAlign: "right", marginBottom: 20}}
+                        onPress={e => this._resetState()}
+                      >
                         Не пришла смс
                       </Text>
                     </TouchableOpacity>
@@ -175,10 +179,10 @@ class SignIn extends Component {
   }
 
   _resetState(){
-    this.props.resetStatePhone()
+    this.props.resetStatePhone();
     this.setState({
       phone: null,
-      phoneValid: false
+      phoneValid: false,
     });
   }
 
@@ -186,28 +190,28 @@ class SignIn extends Component {
     if (e.length === 6) {
       this.setState({
         code: e,
-        codeValid: true
+        codeValid: true,
       })
     } else {
       this.setState({
         code: undefined,
-        codeValid: false
+        codeValid: false,
       })
     }
   };
 }
 
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000'
+    backgroundColor: monoTheme.COLORS.SECONDARY,
   },
   containerBrand: {
     flexDirection: 'row',
@@ -216,24 +220,24 @@ const styles =  StyleSheet.create({
   },
   border: {
     borderWidth: 8,
-    borderRightColor: '#CD603E',
-    marginRight: 8
+    borderRightColor: monoTheme.COLORS.MONO,
+    marginRight: 8,
   },
   mono: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#FFF',
-    marginRight: 10
+    color: monoTheme.COLORS.PRIMARY,
+    marginRight: 10,
   },
   logo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#3ECD9A'
+    color: monoTheme.COLORS.ACTIVE,
   },
   desc: {
     fontSize: 14,
     marginTop: 16,
-    color: '#fff'
+    color: monoTheme.COLORS.PRIMARY,
   },
 });
 
