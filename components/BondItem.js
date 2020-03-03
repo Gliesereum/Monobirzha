@@ -8,7 +8,6 @@ import monobirzhaTheme from '../constants/Theme'
 const { height, width } = Dimensions.get('window');
 
 export default function ListItem({ item, onPressItem, onElectItem }) {
-  console.log(item);
   return (
     <TouchableOpacity style={styles.container} onPress={onPressItem}>
       <View style={styles.infoBox}>
