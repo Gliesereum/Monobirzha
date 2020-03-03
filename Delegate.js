@@ -6,12 +6,12 @@ import {
   StatusBar,
   ActivityIndicator
 } from 'react-native'
-import { GalioProvider } from 'galio-framework';
-import { connect } from 'react-redux';
-import { startApp } from './state/actions/startApp';
+import {GalioProvider} from 'galio-framework';
+import {connect} from 'react-redux';
+import {startApp} from './state/actions/startApp';
 import Loading from "./patch/Loading";
 
-import { monobirzhaTheme } from './constants';
+import {monoTheme} from './constants';
 import AppContainer from './navigation/Screens';
 
 class Delegate extends Component {
@@ -21,26 +21,31 @@ class Delegate extends Component {
   }
 
   render() {
-    const {root} = this.props.mono;
-    return(
-      <GalioProvider theme={monobirzhaTheme}>
+    const {root, auth} = this.props.mono;
+    return (
+      <GalioProvider theme={monoTheme}>
         <StatusBar barStyle="light-content"/>
-        {root.loading ? (
-          <View style={styles.root}>
-            <Loading
-              color={'#3ECD9A'}
-              size={'large'}
+        <View style={styles.root}>
+          {root.loading ? (
+            <View style={styles.root}>
+              <Loading
+                color={'#3ECD9A'}
+                size={'small'}
+              />
+            </View>
+          ) : (
+            <AppContainer
+              isLoggedIn={!!auth.token}
             />
-          </View>
-        ) : (
-          <AppContainer isLoggedIn={true} />
-        )}
+          )
+          }
+        </View>
       </GalioProvider>
     )
   }
 }
 
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: '#000'
