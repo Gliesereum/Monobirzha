@@ -59,5 +59,18 @@ export default createReducer({
   [Types.auth.FINISH_VERIFY_CODE]:
     draft => draft.auth.authLoading = false,
 
+  //---------------  SINGLE BOND  -----------------//
+
+  [Types.single.START]:
+    draft => draft.single.loading = true,
+
+  [Types.single.SUCCESS]:(draft, payload) =>
+    draft.single.bond = payload,
+
+  [Types.single.ERROR]: (draft, payload) =>
+    draft.single.error = payload,
+
+  [Types.single.FINISH]:
+    draft => draft.single.loading = false,
 
 }, initState);

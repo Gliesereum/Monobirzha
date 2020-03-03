@@ -18,4 +18,10 @@ export const Types = {
     FINISH_VERIFY_CODE: "FINISH_VERIFY_CODE/auth",
     ERROR_VERIFY_CODE: "ERROR_VERIFY_CODE/auth"
   },
+  single: {
+    START: "START/single",
+    SUCCESS: "SUCCESS/single",
+    FINISH: "FINISH/single",
+    ERROR: "ERROR/single",
+  }
 };

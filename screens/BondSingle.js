@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 
 import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
+import Loading from '../patch/Loading';
 import monoTheme from '../constants/Theme';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -17,74 +18,102 @@ class BondSingle extends Component {
   handleSellBond = () => {
     this.props.onSell();
   };
+
+  getNcd = (index) => {
+    if (index < 0) return null;
+    const { bond } = this.props.mono.single;
+    const payment = bond.payments[index];
+    if (payment.pay_type === 1) {
+      const dateElem = payment.pay_date.split('.');
+      const dateNow = new Date();
+      const diffDatesInMS = dateNow - new Date(+dateElem[2], +dateElem[1] - 1, +dateElem[0]);
+      const diffDatesInDays = diffDatesInMS / 1000 / 60 / 60 / 24;
+      return Math.floor(diffDatesInDays);
+    } else {
+      this.getNcd(index - 1)
+    }
+  };
+
   render() {
     const { mono, navigation } = this.props;
-    const { singleBond } = mono;
+    const { bond, loading } = mono.single;
+
     return (
       <View style={styles.container}>
-        <TitleField
-          title={singleBond ? singleBond.title : 'Title'}
-          subTitle={singleBond ? singleBond.subTitle : 'SubTitle'}
-          closeIcon={<FontAwesome
-            style={{ alignSelf:'center' }}
-            name="close"
-            size={24}
-            color={monoTheme.COLORS.PRIMARY}
-            onPress={() =>  navigation.goBack()}
-          />}
-        />
-        <ScrollView style={styles.infoContainer}>
-          <InfoField
-            value={1015}
-            label="Ціна купівлі, грн"
-          />
-          <InfoField
-            value={995}
-            label="Ціна продажу, грн"
-          />
-          <InfoField
-            value={1000}
-            label="Номінал, грн"
-          />
-          <InfoField
-            value={"16.05.2017"}
-            label="Дата розміщення, грн"
-          />
-          <InfoField
-            value={"13.05.2020"}
-            label="Дата погашення, грн"
-          />
-          <InfoField
-            value={10}
-            label="Купон, годові, %"
-          />
-          <InfoField
-            value={34}
-            label="НКД, грн"
-          />
-          <InfoField
-            value={"16.05.2018"}
-            label="Дата наступної виплати"
-          />
-        </ScrollView>
-        <View style={styles.costWrapper}>
-          <InfoField
-            value={"16.05.2018"}
-            label="Вільний залишок, грн"
-          />
-        </View>
-        <View style={styles.buttonWrapper}>
-          <TouchableOpacity onPress={this.handleBuyBond}>
-            <View style={{ ...styles.buttonBox, backgroundColor: monoTheme.COLORS.MONO }}>
-              <Text style={styles.buttonText}>Купити</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleSellBond}>
-            <View style={styles.buttonBox}>
-              <Text style={styles.buttonText}>Продати</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        {
+          loading ? (
+            <Loading
+              color={'#3ECD9A'}
+              size={'small'}
+            />
+          ) : (
+            <Fragment>
+              <TitleField
+                title={bond.cpcode || 'Title'}
+                subTitle={bond.cpdescr || null}
+                closeIcon={<FontAwesome
+                  style={{ alignSelf:'center' }}
+                  name="close"
+                  size={24}
+                  color={monoTheme.COLORS.PRIMARY}
+                  onPress={() =>  navigation.goBack()}
+                />}
+              />
+              <ScrollView style={styles.infoContainer}>
+                <InfoField
+                  value={null}
+                  label="Ціна купівлі, грн"
+                />
+                <InfoField
+                  value={null}
+                  label="Ціна продажу, грн"
+                />
+                <InfoField
+                  value={bond.nominal}
+                  label="Номінал, грн"
+                />
+                <InfoField
+                  value={bond.razm_date}
+                  label="Дата первинного розміщення"
+                />
+                <InfoField
+                  value={bond.pgs_date}
+                  label="Дата погашення"
+                />
+                <InfoField
+                  value={bond.auk_proc}
+                  label="Процентна ставка"
+                />
+                <InfoField
+                  value={null}
+                  label={this.getNcd(bond.payments.length - 1)}
+                />
+                <InfoField
+                  value={null}
+                  label="Дата наступної виплати"
+                />
+              </ScrollView>
+              <View style={styles.costWrapper}>
+                <InfoField
+                  value={0}
+                  label="Вільний залишок, грн"
+                />
+              </View>
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity onPress={this.handleBuyBond}>
+                  <View style={{ ...styles.buttonBox, backgroundColor: monoTheme.COLORS.MONO }}>
+                    <Text style={styles.buttonText}>Купити</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.handleSellBond}>
+                  <View style={styles.buttonBox}>
+                    <Text style={styles.buttonText}>Продати</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </Fragment>
+          )
+        }
       </View>
     );
   }
