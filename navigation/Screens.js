@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -109,7 +109,7 @@ function AppContainer ({ isLoggedIn }) {
   return (
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
       {
-        !isLoggedIn ? (
+        isLoggedIn ? (
           <RootStack.Navigator mode="modal" headerMode="none">
             <RootStack.Screen name="Tabs" component={TabsStackScreen} />
             <RootStack.Screen name="BondModal" component={BondSingle}/>

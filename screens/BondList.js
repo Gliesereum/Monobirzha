@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, FlatList, Dimensions, View } from 'react-native';
-import { Text, theme } from 'galio-framework';
 
 import ListItem from '../components/ListItem';
 
@@ -13,10 +12,11 @@ export default function BondList({
   onPressItem = () => {},
   onElectItem = () => {},
   navigation,
+  singleBond,
 }) {
   const handlePressItem = () => {
     onPressItem();
-    navigation.navigate('BondModal');
+    navigation.navigate('BondModal', { singleBond });
   };
 
   const handleElectItem = () => {
@@ -42,12 +42,12 @@ export default function BondList({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: theme.SIZES.BASE * 2,
+    paddingTop: monobirzhaTheme.SIZES.BASE * 2,
     flex: 1,
     width: width,
     backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
   },
   innerPadding: {
-    paddingHorizontal: theme.SIZES.BASE,
+    paddingHorizontal: monobirzhaTheme.SIZES.BASE,
   },
 });
