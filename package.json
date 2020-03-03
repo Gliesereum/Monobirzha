@@ -8,15 +8,32 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "create-react-class": "^15.6.3",
     "expo": "~36.0.0",
+    "expo-constants": "^8.0.0",
+    "expo-font": "^8.0.0",
+    "immer": "^5.3.6",
+    "lodash": "^4.17.15",
+    "lottie-react-native": "^3.3.2",
+    "prop-types": "^15.7.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-chart-kit": "^5.1.1",
+    "react-native-confirmation-code-input": "^1.0.4",
+    "react-native-phone-input": "^0.2.4",
+    "react-native-scrollable-tab-view": "^1.0.0",
+    "react-native-svg": "^11.0.1",
+    "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0"
   },
   "private": true
 }
