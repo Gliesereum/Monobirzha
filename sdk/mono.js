@@ -16,7 +16,41 @@ class MonoSDK {
     this.urls = {
       STATUS_API: `${this.config.server}/api/v1/status`,
       CHECK_PHONE: `${this.config.server}/api/v1/patch/check/phone?q=`,
+      VERIFY_CODE: `${this.config.server}/api/v1/patch/check/phone/verify`,
       GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
+      GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
+    };
+
+    this.api = {
+      statusApi: async () =>
+        await this._fetchServer(
+          this.urls.STATUS_API,
+          "get"
+        ),
+
+      getOvdpList: async () =>
+        await this._fetchServer(
+          this.urls.GET_OVDP_LIST,
+          "get"
+        ),
+
+      getOvdpDetails: async (id) =>
+        await this._fetchServer(
+          this.urls.GET_OVDP_SINGLE + id,
+          "get"
+        ),
+
+      checkPhone: async phone =>
+        await this._fetchServer(
+          this.urls.CHECK_PHONE + phone + `${development && '&dev=08a4dc90b3f58ec0.key'}`,
+          "get"
+        ),
+
+      verifyCode: async (phone, code) =>
+        await this._fetchServer(
+          this.urls.VERIFY_CODE + `?q=${phone}&code=${code}`,
+          "get"
+        ),
     };
 
     this.storage = {
@@ -38,21 +72,8 @@ class MonoSDK {
         }
       }
     };
-
-    this.api = {
-      statusApi: async () =>
-        await this._fetchServer(
-          this.urls.STATUS_API,
-          "get"
-        ),
-
-      checkPhone: async phone =>
-        await this._fetchServer(
-          this.urls.CHECK_PHONE + phone + `${development && '&dev=08a4dc90b3f58ec0.key'}`,
-          "get"
-        ),
-    };
   }
+
 
   _fetchServer(url, method = "get", body = undefined, token = undefined) {
 

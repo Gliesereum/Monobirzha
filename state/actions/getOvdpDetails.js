@@ -1,7 +1,7 @@
 import {Types} from "../types";
 import sdk from "../../sdk";
 
-export function getActionList() {
+export function getOvdpDetails() {
   return async dispatch => {
     try {
 

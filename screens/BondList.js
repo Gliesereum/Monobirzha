@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, FlatList, Dimensions, View } from 'react-nati
 
 import ListItem from '../components/ListItem';
 
-import { monobirzhaTheme } from '../constants';
+import { monoTheme } from '../constants';
 
 const { width } = Dimensions.get('window');
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingTop: monobirzhaTheme.SIZES.BASE * 2,
     flex: 1,
     width: width,
-    backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+    backgroundColor: monoTheme.COLORS.SECONDARY,
   },
   innerPadding: {
     paddingHorizontal: monobirzhaTheme.SIZES.BASE,

@@ -1,3 +1,3 @@
-import monobirzhaTheme from './Theme';
+import monoTheme from './Theme';
 
-export { monobirzhaTheme };
+export { monoTheme };

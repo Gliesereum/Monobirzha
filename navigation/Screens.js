@@ -12,7 +12,7 @@ import BondList from '../screens/BondList';
 import BondSingle from '../screens/BondSingle';
 import SignIn from '../screens/SignIn';
 
-import monobirzhaTheme from '../constants/Theme';
+import monoTheme from '../constants/Theme';
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
@@ -33,7 +33,6 @@ function SignInNavigation() {
   );
 }
 
-
 const TabsStack = createBottomTabNavigator();
 function TabsStackScreen() {
   return (
@@ -46,9 +45,9 @@ function TabsStackScreen() {
         },
         style: {
           borderTopWidth: 0,
-          backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+          backgroundColor: monoTheme.COLORS.SECONDARY,
         },
-        activeTintColor: monobirzhaTheme.COLORS.ACTIVE
+        activeTintColor: monoTheme.COLORS.ACTIVE
       }}
     >
       <TabsStack.Screen
@@ -59,10 +58,10 @@ function TabsStackScreen() {
           tabBarIcon: ({ focused }) =>
             <View style={{ marginTop: 20 }}>
               <FontAwesome
-                style={{ alignSelf:'center' }}
+                style={{ alignSelf: 'center' }}
                 name="list"
                 size={18}
-                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>
         }}
@@ -71,14 +70,15 @@ function TabsStackScreen() {
         name={BOTTOM_TABS.PORTFOLIO_TAB}
         component={Portfolio}
         options={{
-          tabBarLabel: () => {},
-          tabBarIcon: ({ focused }) =>
-            <View style={{ marginTop: 20 }}>
+          tabBarLabel: () => {
+          },
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 20}}>
               <FontAwesome
-                style={{ alignSelf:'center' }}
+                style={{alignSelf: 'center'}}
                 name="briefcase"
                 size={18}
-                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>
         }}
@@ -87,14 +87,15 @@ function TabsStackScreen() {
         name={BOTTOM_TABS.ACCOUNT_TAB}
         component={Account}
         options={{
-          tabBarLabel: () => {},
-          tabBarIcon: ({ focused }) =>
-            <View style={{ marginTop: 20 }}>
+          tabBarLabel: () => {
+          },
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 20}}>
               <FontAwesome
-                style={{ alignSelf:'center' }}
+                style={{alignSelf: 'center'}}
                 name="credit-card-alt"
                 size={18}
-                color={monobirzhaTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />
             </View>
         }}
