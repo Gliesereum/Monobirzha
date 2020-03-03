@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableOpacity } from
 
 import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
-import monobirzhaTheme from '../constants/Theme';
+import monoTheme from '../constants/Theme';
 import { FontAwesome } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window');
@@ -28,7 +28,7 @@ export default function BondSingle({ route, navigation, onBuy, onSell }) {
           style={{ alignSelf:'center' }}
           name="close"
           size={24}
-          color={monobirzhaTheme.COLORS.PRIMARY}
+          color={monoTheme.COLORS.PRIMARY}
           onPress={() =>  navigation.goBack()}
         />}
       />
@@ -74,7 +74,7 @@ export default function BondSingle({ route, navigation, onBuy, onSell }) {
       </View>
       <View style={styles.buttonWrapper}>
         <TouchableOpacity onPress={handleBuyBond}>
-          <View style={{ ...styles.buttonBox, backgroundColor: monobirzhaTheme.COLORS.MONO }}>
+          <View style={{ ...styles.buttonBox, backgroundColor: monoTheme.COLORS.MONO }}>
             <Text style={styles.buttonText}>Купити</Text>
           </View>
         </TouchableOpacity>
@@ -90,38 +90,38 @@ export default function BondSingle({ route, navigation, onBuy, onSell }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: monobirzhaTheme.SIZES.BASE * 2,
+    paddingTop: monoTheme.SIZES.BASE * 2,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: monobirzhaTheme.COLORS.SECONDARY,
+    backgroundColor: monoTheme.COLORS.SECONDARY,
     flex: 1,
   },
   infoContainer: {
-    width: width - monobirzhaTheme.SIZES.BASE * 2,
+    width: width - monoTheme.SIZES.BASE * 2,
     maxHeight: height * 0.5
   },
   costWrapper: {
-    marginTop: monobirzhaTheme.SIZES.BASE,
-    width: width - monobirzhaTheme.SIZES.BASE * 2,
-    height: monobirzhaTheme.SIZES.BASE * 4,
+    marginTop: monoTheme.SIZES.BASE,
+    width: width - monoTheme.SIZES.BASE * 2,
+    height: monoTheme.SIZES.BASE * 4,
   },
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: monobirzhaTheme.SIZES.BASE,
-    marginBottom: monobirzhaTheme.SIZES.BASE * 3,
-    width: width - monobirzhaTheme.SIZES.BASE * 2,
+    marginTop: monoTheme.SIZES.BASE,
+    marginBottom: monoTheme.SIZES.BASE * 3,
+    width: width - monoTheme.SIZES.BASE * 2,
   },
   buttonBox: {
     alignItems: 'center',
-    width: (width - monobirzhaTheme.SIZES.BASE * 3) / 2,
+    width: (width - monoTheme.SIZES.BASE * 3) / 2,
     justifyContent: 'center',
     height: 48,
     borderRadius: 5,
-    backgroundColor: monobirzhaTheme.COLORS.ACTIVE,
+    backgroundColor: monoTheme.COLORS.ACTIVE,
   },
   buttonText: {
-    fontSize: monobirzhaTheme.SIZES.BUTTON,
-    color: monobirzhaTheme.COLORS.PRIMARY,
+    fontSize: monoTheme.SIZES.BUTTON,
+    color: monoTheme.COLORS.PRIMARY,
   }
 });

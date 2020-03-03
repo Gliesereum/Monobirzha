@@ -42,12 +42,12 @@ export default function BondList({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: monobirzhaTheme.SIZES.BASE * 2,
+    paddingTop: monoTheme.SIZES.BASE * 2,
     flex: 1,
     width: width,
     backgroundColor: monoTheme.COLORS.SECONDARY,
   },
   innerPadding: {
-    paddingHorizontal: monobirzhaTheme.SIZES.BASE,
+    paddingHorizontal: monoTheme.SIZES.BASE,
   },
 });

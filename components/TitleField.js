@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
-import monobirzhaTheme from '../constants/Theme';
+import monoTheme from '../constants/Theme';
 
 const { width } = Dimensions.get('window');
 
@@ -29,10 +29,10 @@ export default function TitleField({
 
 const styles = StyleSheet.create({
   container: {
-    padding: monobirzhaTheme.SIZES.BASE,
+    padding: monoTheme.SIZES.BASE,
     alignItems: 'center',
     position: 'relative',
-    width: width - monobirzhaTheme.SIZES.BASE * 2,
+    width: width - monoTheme.SIZES.BASE * 2,
   },
   centralBox: {
     justifyContent: 'center',
@@ -40,16 +40,16 @@ const styles = StyleSheet.create({
   iconBox: {
     zIndex: 999,
     position: 'absolute',
-    top: monobirzhaTheme.SIZES.BASE,
-    right: monobirzhaTheme.SIZES.BASE,
+    top: monoTheme.SIZES.BASE,
+    right: monoTheme.SIZES.BASE,
   },
   title: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
-    fontSize: monobirzhaTheme.SIZES.TITLE,
-    marginBottom: monobirzhaTheme.SIZES.BASE,
+    color: monoTheme.COLORS.PRIMARY,
+    fontSize: monoTheme.SIZES.TITLE,
+    marginBottom: monoTheme.SIZES.BASE,
   },
   subTitle: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
-    fontSize: monobirzhaTheme.SIZES.SUB_TITLE,
+    color: monoTheme.COLORS.PRIMARY,
+    fontSize: monoTheme.SIZES.SUB_TITLE,
   },
 });

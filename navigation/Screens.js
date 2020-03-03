@@ -72,10 +72,10 @@ function TabsStackScreen() {
         options={{
           tabBarLabel: () => {
           },
-          tabBarIcon: ({focused}) =>
-            <View style={{marginTop: 20}}>
+          tabBarIcon: ({ focused }) =>
+            <View style={{ marginTop: 20 }}>
               <FontAwesome
-                style={{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
                 name="briefcase"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
@@ -89,10 +89,10 @@ function TabsStackScreen() {
         options={{
           tabBarLabel: () => {
           },
-          tabBarIcon: ({focused}) =>
-            <View style={{marginTop: 20}}>
+          tabBarIcon: ({ focused }) =>
+            <View style={{ marginTop: 20 }}>
               <FontAwesome
-                style={{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
                 name="credit-card-alt"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}

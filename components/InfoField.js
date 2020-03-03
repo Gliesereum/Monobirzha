@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import monobirzhaTheme from '../constants/Theme';
+import monoTheme from '../constants/Theme';
 
 export default function InfoField({
   label,
@@ -32,26 +32,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: monobirzhaTheme.COLORS.PRIMARY,
+    borderBottomColor: monoTheme.COLORS.PRIMARY,
     borderBottomWidth: 1,
     height: 48,
-    padding: monobirzhaTheme.SIZES.BASE,
-    marginBottom: monobirzhaTheme.SIZES.BASE,
+    padding: monoTheme.SIZES.BASE,
+    marginBottom: monoTheme.SIZES.BASE,
   },
   labelBox: {
 
   },
   labelText: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
-    fontSize: monobirzhaTheme.SIZES.FONT,
-    lineHeight: monobirzhaTheme.SIZES.FONT,
+    color: monoTheme.COLORS.PRIMARY,
+    fontSize: monoTheme.SIZES.FONT,
+    lineHeight: monoTheme.SIZES.FONT,
   },
   valueBox: {
 
   },
   valueText: {
-    color: monobirzhaTheme.COLORS.PRIMARY,
-    fontSize: monobirzhaTheme.SIZES.FONT,
-    lineHeight: monobirzhaTheme.SIZES.FONT,
+    color: monoTheme.COLORS.PRIMARY,
+    fontSize: monoTheme.SIZES.FONT,
+    lineHeight: monoTheme.SIZES.FONT,
   }
 });
