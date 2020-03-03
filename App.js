@@ -6,12 +6,11 @@ import AppContainer from './navigation/Screens';
 import { monobirzhaTheme } from './constants'
 
 export default function App() {
-  console.log(AppContainer);
   return (
     <GalioProvider theme={monobirzhaTheme}>
-      <Block flex>
+      <View style={{ flex: 1 }}>
         <AppContainer isLoggedIn={true} />
-      </Block>
+      </View>
       {/*<Block flex>*/}
       {/*  <View style={styles.container}>*/}
       {/*    <View style={styles.containerBrand}>*/}
