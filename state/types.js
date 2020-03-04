@@ -19,6 +19,11 @@ export const Types = {
     ERROR_VERIFY_CODE: "ERROR_VERIFY_CODE/auth",
     //---------------------------------------------//
     ACCOUNT: "ACCOUNT/auth",
-    LOG_OUT: "LOG_OUT/auth"
+    LOG_OUT: "LOG_OUT/auth",
+    //---------------------------------------------//
+    START_BROKER_ACCOUNT: "START_BROKER_ACCOUNT/auth",
+    SUCCESS_BROKER_ACCOUNT: "SUCCESS_BROKER_ACCOUNT/auth",
+    FINISH_BROKER_ACCOUNT: "FINISH_BROKER_ACCOUNT/auth",
+    ERROR_BROKER_ACCOUNT: "ERROR_BROKER_ACCOUNT/auth",
   },
 };

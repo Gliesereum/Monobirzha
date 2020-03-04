@@ -18,6 +18,7 @@ class MonoSDK {
       CHECK_PHONE: `${this.config.server}/api/v1/patch/check/phone?q=`,
       VERIFY_CODE: `${this.config.server}/api/v1/patch/check/phone/verify`,
       ACCOUNT_INFO: `${this.config.server}/api/v1/patch/hacker/my`,
+      REQUEST_BROKER: `${this.config.server}/api/v1/patch/broker/request/account`,
       GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
       GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
     };
@@ -38,6 +39,14 @@ class MonoSDK {
       getAccountInfo: async (token) =>
         await this._fetchServer(
           this.urls.ACCOUNT_INFO,
+          "get",
+          undefined,
+          token
+        ),
+
+      requestBrokerAcc: async (token) =>
+        await this._fetchServer(
+          this.urls.REQUEST_BROKER,
           "get",
           undefined,
           token

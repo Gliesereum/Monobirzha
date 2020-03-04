@@ -42,7 +42,8 @@ function TabsStackScreen({...props}) {
   return (
     <TabsStack.Navigator
       initialRouteName={
-        props.bankIdAccount ? BOTTOM_TABS.LIST_TAB : BOTTOM_TABS.ACCOUNT_TAB
+        BOTTOM_TABS.ACCOUNT_TAB
+        //props.brokerId ? BOTTOM_TABS.LIST_TAB : BOTTOM_TABS.ACCOUNT_TAB
       }
       backBehavior="history"
       tabBarOptions={{
@@ -110,7 +111,7 @@ function TabsStackScreen({...props}) {
               <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
                 Счет
               </Text>
-              {!props.bankIdAccount && (
+              {!props.brokerId && (
                 <View style={{
                   backgroundColor: '#CD603E',
                   width: 15,
@@ -140,12 +141,12 @@ function TabsStackScreen({...props}) {
 
 const RootStack = createStackNavigator();
 
-function AppContainer({isLoggedIn, bankIdAccount}) {
+function AppContainer({isLoggedIn, brokerId}) {
   return (
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
       {isLoggedIn ? (
         <RootStack.Navigator mode="modal" headerMode="none">
-          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {bankIdAccount})}/>
+          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {brokerId})}/>
           <RootStack.Screen name="BondModal" component={BondSingle}/>
         </RootStack.Navigator>
       ) : (

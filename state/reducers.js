@@ -17,8 +17,8 @@ export default createReducer({
     draft.auth.token = token;
   },
 
-  [Types.auth.ACCOUNT]: (draft, {bankIdAccount}) => {
-    draft.auth.bankIdAccount = bankIdAccount;
+  [Types.auth.ACCOUNT]: (draft, {brokerId}) => {
+    draft.auth.brokerId = brokerId;
   },
 
   [Types.start.ERROR]: (draft, payload) => {
@@ -63,8 +63,28 @@ export default createReducer({
   [Types.auth.FINISH_VERIFY_CODE]:
     draft => draft.auth.authLoading = false,
 
-  [Types.auth.LOG_OUT]:
-    draft => draft.auth.token = null,
+  [Types.auth.LOG_OUT]: (draft) => {
+    draft.auth.token = null;
+    draft.auth.phoneRequest = false;
+    draft.auth.brokerId = null;
+    draft.auth.phone = null;
+    draft.auth.brokerAccount = null;
+    draft.auth.bankIdAccount = null;
+    draft.auth.faceIdActive = null;
+    draft.auth.localPinCodeActive = null;
+  },
+
+  //---------------  BROKER ACCOUNT  -----------------//
+
+  [Types.auth.START_BROKER_ACCOUNT]:
+    draft => draft.auth.requestLoading = true,
+
+  [Types.auth.SUCCESS_BROKER_ACCOUNT]: (draft, payload) => {
+    draft.auth.brokerId = payload.response.brokerId;
+  },
+
+  [Types.auth.FINISH_BROKER_ACCOUNT]:
+    draft => draft.auth.requestLoading = false,
 
 
 }, initState);

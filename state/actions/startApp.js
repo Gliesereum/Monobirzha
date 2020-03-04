@@ -19,12 +19,12 @@ export function startApp() {
       if(legalToken){
         const account = await sdk.api.getAccountInfo(legalToken)
 
-        console.log(account);
+        console.log(account.brokerId);
 
         await dispatch({
           type: Types.auth.ACCOUNT,
           payload: {
-            bankIdAccount: account.response
+            brokerId: account.response.brokerId
           }
         });
 

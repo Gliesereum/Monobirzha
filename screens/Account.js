@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import {
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native';
 
 import { Block, Text, theme } from "galio-framework";
@@ -16,6 +17,8 @@ import Icon from "../components/Icon";
 import { monoTheme } from '../constants';
 import Separator from "../components/Separator";
 import {logOut} from "../state/actions/checkPhone";
+import {requestBrokerAccount} from "../state/actions/broker";
+import Loading from "../patch/Loading";
 
 class Account extends Component {
   state = {};
@@ -60,9 +63,10 @@ class Account extends Component {
   render() {
 
     const recommended = [
-      { title: "Использовать FaceID", id: "face", type: "switch" },
-      { title: "Автоблокировка", id: "autolock", type: "switch" },
-      //{ title: "Notifications", id: "NotificationsSettings", type: "button" }
+      { title: "Пароль", id: "PinNotificationsSettings", type: "switch" },
+      { title: "Використовувати FaceID", id: "face", type: "switch" },
+      { title: "Автоблокування", id: "autolock", type: "switch" },
+      { title: "Повідомлення", id: "NotificationsSettings", type: "switch" }
     ];
 
     return (
@@ -70,76 +74,111 @@ class Account extends Component {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.settings}
       >
-        <Block center style={styles.title}>
-          <Text style={styles.titleText}>
-            Счет отсутвует
-          </Text>
-          <Text style={styles.subtitleText}>
-            Откройте брокерский счет в один клик
-          </Text>
-        </Block>
 
-        <Separator/>
-
-        <View style={{flex: 1, marginTop: 0}}>
-          <Block center style={styles.title}>
-            <Text style={styles.titleText}>
-              Открыть счет через
-            </Text>
-            <View style={{width: 1, height: 60, backgroundColor: '#ccc', marginTop: 30}}/>
-            <TouchableOpacity>
-              <View style={{marginTop: 40}}>
-                <Image
-                  source={require('../assets/bankIdMini.png')}
-                />
-              </View>
-            </TouchableOpacity>
-            <View style={{width: 1, height: 60, backgroundColor: '#ccc', marginTop: 30}}/>
-            <Text style={{
-              padding: 10,
-              marginTop: 40,
-              textAlign: 'center',
-              fontSize: 14,
-              color: monoTheme.COLORS.TIME,
-              lineHeight: 17
-            }}>
-              BankID позволит Вам открыть брокерский счет быстро и безопасно, просто выберете банк в котором Вы обслуживаетесь и разрешите передать данные Украинской Бирже.
-            </Text>
-            <TouchableOpacity onPress={e => this.props.logOut()}>
-              <View style={{marginTop: 0}}>
-                <Text style={{
-                  padding: 10,
-                  marginTop: 40,
-                  textAlign: 'center',
-                  fontSize: 20,
-                  color: monoTheme.COLORS.MONO,
-                  lineHeight: 17
-                }}>
-                  Выйти из приложения
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </Block>
-        </View>
-
-
-        {/*<FlatList
-          data={recommended}
-          keyExtractor={(item, index) => item.id}
-          renderItem={this.renderItem}
-          ListHeaderComponent={
+        {this.props.mono.auth.requestLoading ? (
+          <Loading color={'#23D29C'} size={'small'}/>
+        ): (
+          <Fragment>
+            <Separator/>
             <Block center style={styles.title}>
               <Text style={styles.titleText}>
-                Рекомендуемые настройки
+                {this.props.mono.auth.brokerId? 'Рахунок': 'Рахунок відсутній'}
               </Text>
-              <Text style={styles.subtitleText}>
-                Мы рекомендуем повысить уровень безопасности
-              </Text>
+              {this.props.mono.auth.brokerId ? (
+                <Text style={{
+                  fontSize: 32,
+                  color: '#3ECD9A',
+                  fontWeight: '700',
+                  textTransform: 'uppercase'
+                }}>
+                  {this.props.mono.auth.brokerId}
+                </Text>
+              ): (
+                <Text style={styles.subtitleText}>
+                  Відкрийте брокерський рахунок в один клік
+                </Text>
+              )}
             </Block>
-          }
-        />
 
-        <Separator/>*/}
+            {!this.props.mono.auth.brokerId && (
+              <Fragment>
+                <Separator/>
+
+                <View style={{flex: 1, marginTop: 0}}>
+                  <Block center style={styles.title}>
+                    <Text style={styles.titleText}>
+                      Відкрити рахунок через
+                    </Text>
+                    <View style={{width: 1, height: 30, backgroundColor: '#ccc', marginTop: 30}}/>
+                    <TouchableOpacity onPress={() => this.props.requestBrokerAccount()}>
+                      <View style={{
+                        width: 120,
+                        height: 50,
+                        marginTop: 30,
+                        backgroundColor: '#393939',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 40,
+                      }}>
+                        <Image
+                          source={require('../assets/bankIdMini.png')}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                    <View style={{width: 1, height: 30, backgroundColor: '#ccc', marginTop: 30}}/>
+
+                    <Text style={{
+                      padding: 10,
+                      marginTop: 40,
+                      textAlign: 'center',
+                      fontSize: 14,
+                      color: monoTheme.COLORS.TIME,
+                      lineHeight: 17
+                    }}>
+                      BankID дозволить Вам відкрити брокерський рахунок швидко і безпечно, просто виберете банк в якому Ви обслуговуєтеся і дозвольте передати дані Української Біржі.
+                    </Text>
+                  </Block>
+                </View>
+              </Fragment>
+            )}
+
+            <Separator/>
+
+            <View style={{marginBottom: 60}}>
+              <FlatList
+                data={recommended}
+                keyExtractor={(item, index) => item.id}
+                renderItem={this.renderItem}
+                ListHeaderComponent={
+                  <Block center style={styles.title}>
+                    <Text style={styles.titleText}>
+                      Рекомендовані настройки
+                    </Text>
+                    <Text style={styles.subtitleText}>
+                      Ми рекомендуємо підвищити рівень безпеки
+                    </Text>
+                  </Block>
+                }
+              />
+              <TouchableOpacity onPress={e => this.props.logOut()}>
+                <View style={{marginTop: 0}}>
+                  <Text style={{
+                    padding: 10,
+                    marginTop: 40,
+                    textAlign: 'center',
+                    fontSize: 20,
+                    color: monoTheme.COLORS.MONO,
+                    lineHeight: 17
+                  }}>
+                    Вийти
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+          </Fragment>
+        )}
 
       </ScrollView>
     )
@@ -157,7 +196,7 @@ const styles = StyleSheet.create({
     backgroundColor: monoTheme.COLORS.WHITE
   },
   title: {
-    paddingTop: theme.SIZES.BASE * 2,
+    paddingTop: theme.SIZES.BASE,
     paddingBottom: theme.SIZES.BASE
   },
   titleText: {
@@ -188,4 +227,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(state => state, {logOut})(Account);
+export default connect(state => state, {logOut, requestBrokerAccount})(Account);

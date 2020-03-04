@@ -46,16 +46,16 @@ class SignIn extends Component {
             ) : (
               <Fragment>
                 <View style={{
-                  marginTop: 40,
+                  marginTop: 10,
                   height: Dimensions.get('window').height / 4
                 }}>
                   <Brand
                     leftText={'mono'}
-                    rightText={'invest'}
+                    rightText={'birzha'}
                   />
                 </View>
                 {!auth.phoneRequest ? (
-                  <View style={{flex: 2, padding: 10}}>
+                  <View style={{flex: 3, padding: 10}}>
                     <PhoneInput
                       initialCountry={'ua'}
                       onChangePhoneNumber={e => this._validPhone(e)}
@@ -68,14 +68,14 @@ class SignIn extends Component {
                       }}
                       text={{color: "#fff"}}
                       style={{
-                        paddingLeft: 50,
-                        height:75,
-                        marginTop: 20,
+                        paddingLeft: 60,
+                        height:70,
+                        marginTop: 0,
                         backgroundColor: "#0C0C0C",
                         borderRadius: 8,
                       }}
                       textStyle={{
-                        fontSize: 18,
+                        fontSize: 24,
                         color: "#fff",
                         padding: 0
                       }}
@@ -103,14 +103,44 @@ class SignIn extends Component {
                           color: this.state.phoneValid ? monoTheme.COLORS.PRIMARY : "#69758e",
                           fontSize: 18
                         }}>
-                          Отправить код
+                          Надіслати код
                         </Text>
                       </View>
                     </TouchableOpacity>
+                    <Text style={{
+                      padding: 20,
+                      marginTop: 0,
+                      textAlign: 'center',
+                      fontSize: 16,
+                      color: monoTheme.COLORS.TIME,
+                      lineHeight: 17
+                    }}>
+                      Додаток для купівлі та продажу ОВПД і цінних паперів в Україні.
+                    </Text>
+
+                    <Text style={{
+                      padding: 0,
+                      marginTop: 0,
+                      textAlign: 'center',
+                      fontSize: 12,
+                      color: monoTheme.COLORS.TIME,
+                    }}>
+                      Prototype version 0.16
+                    </Text>
+
+                    <Text style={{
+                      padding: 20,
+                      marginTop: 0,
+                      textAlign: 'center',
+                      fontSize: 12,
+                      color: monoTheme.COLORS.MONO,
+                    }}>
+                      Створено за 48 годин в #HACKATHONHUB
+                    </Text>
                   </View>
                 ) : (
                   <View style={{
-                    flex: 2,
+                    flex: 3,
                     padding: 10
                   }}>
                     <CodeInput
@@ -154,7 +184,7 @@ class SignIn extends Component {
                           color: this.state.codeValid ? monoTheme.COLORS.PRIMARY : "#69758e",
                           fontSize: 20
                         }}>
-                          Войти
+                          Увійти
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -163,15 +193,13 @@ class SignIn extends Component {
                         style={{color: "#69758e", textAlign: "right", marginBottom: 20}}
                         onPress={e => this._resetState()}
                       >
-                        Не пришла смс
+                        Не прийшла смс
                       </Text>
                     </TouchableOpacity>
                   </View>
                 )}
               </Fragment>
             )}
-
-
           </View>
         </KeyboardAwareScrollView>
       </View>
@@ -257,7 +285,7 @@ const Brand = ({leftText, rightText}) => (
     </View>
     <View>
       <Text style={styles.desc}>
-        Украинская Биржа
+        Українська Біржа
       </Text>
     </View>
   </View>

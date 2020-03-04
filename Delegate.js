@@ -37,7 +37,7 @@ class Delegate extends Component {
           ) : (
             <AppContainer
               isLoggedIn={!!auth.token}
-              bankIdAccount={auth.bankIdAccount}
+              brokerId={auth.brokerId}
             />
           )
           }

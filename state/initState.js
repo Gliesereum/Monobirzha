@@ -21,6 +21,7 @@ export const initState = {
     loading: false,
     phoneRequest: false,
     authLoading: false,
+    requestLoading: false,
     token: null,
     phone: null,
     name: null,
