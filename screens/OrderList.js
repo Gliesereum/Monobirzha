@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, RefreshControl, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
+import { getOrderList } from '../state/actions/getOrderList';
 import { monoTheme } from '../constants';
 
 const { height, width } = Dimensions.get('window');
 
 class OrderList extends Component {
   render() {
+    const { mono, getOrderList } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.tabContainer}>
@@ -71,4 +73,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(state => state, {})(OrderList);
+export default connect(state => state, {
+  getOrderList,
+})(OrderList);

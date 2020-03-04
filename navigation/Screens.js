@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Entypo } from '@expo/vector-icons';
 
 import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
@@ -67,8 +67,36 @@ function TabsStackScreen({...props}) {
         options={{
           tabBarLabel: ({focused}) => (
             <View>
-              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
-                Список
+              <Text style={{
+                color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY'],
+                fontSize: 12,
+              }}>
+                Ринок
+              </Text>
+            </View>
+          ),
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 10}}>
+              <Entypo
+                style={{alignSelf: 'center'}}
+                name="bar-graph"
+                size={18}
+                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              />
+            </View>
+        }}
+      />
+      <TabsStack.Screen
+        name={BOTTOM_TABS.ORDERS_TAB}
+        component={OrderList}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <View>
+              <Text style={{
+                color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY'],
+                fontSize: 12,
+              }}>
+                Заявки
               </Text>
             </View>
           ),
@@ -84,41 +112,22 @@ function TabsStackScreen({...props}) {
         }}
       />
       <TabsStack.Screen
-        name={BOTTOM_TABS.ORDERS_TAB}
-        component={OrderList}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <View>
-              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
-                Заявки
-              </Text>
-            </View>
-          ),
-          tabBarIcon: ({focused}) =>
-            <View style={{marginTop: 10}}>
-              <FontAwesome
-                style={{alignSelf: 'center'}}
-                name="briefcase"
-                size={18}
-                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
-              />
-            </View>
-        }}
-      />
-      <TabsStack.Screen
         name={BOTTOM_TABS.PORTFOLIO_TAB}
         component={Portfolio}
         options={{
           tabBarLabel: ({focused}) => (
             <View>
-              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
+              <Text style={{
+                color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY'],
+                fontSize: 12,
+              }}>
                 Портфель
               </Text>
             </View>
           ),
           tabBarIcon: ({focused}) =>
             <View style={{marginTop: 10}}>
-              <FontAwesome
+              <Entypo
                 style={{alignSelf: 'center'}}
                 name="briefcase"
                 size={18}
@@ -133,8 +142,11 @@ function TabsStackScreen({...props}) {
         options={{
           tabBarLabel: ({focused}) => (
             <View>
-              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
-                Счет
+              <Text style={{
+                color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY'],
+                fontSize: 12,
+              }}>
+                Рахунок
               </Text>
               {!props.brokerId && (
                 <View style={{
@@ -151,9 +163,9 @@ function TabsStackScreen({...props}) {
           ),
           tabBarIcon: ({focused}) =>
             <View style={{marginTop: 10}}>
-              <FontAwesome
+              <Entypo
                 style={{alignSelf: 'center'}}
-                name="credit-card-alt"
+                name="wallet"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />

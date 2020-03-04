@@ -1,7 +1,7 @@
 import {Types} from "../types";
 import sdk from "../../sdk";
 
-export function orderGetList() {
+export function getOrderList() {
   return async dispatch => {
     try {
 
