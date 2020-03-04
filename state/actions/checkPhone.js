@@ -5,8 +5,8 @@ export function verifyCode(phone, code) {
   return async dispatch => {
     dispatch({type: Types.auth.START_VERIFY_CODE});
     try {
-      const result = await sdk.api.verifyCode(phone, code);
-      console.log(result.response.legal_token);
+      let phoneParse = phone.replace(new RegExp(/[&\/\\#,+()$~%.'":*?<>{}]/g), '');
+      const result = await sdk.api.verifyCode(phoneParse, code);
 
       await sdk.storage.setStorage(
         'LegalToken',
@@ -17,11 +17,30 @@ export function verifyCode(phone, code) {
         type: Types.auth.SUCCESS_VERIFY_CODE,
         payload: result
       });
+
+      dispatch({type: Types.auth.START_BROKER_ACCOUNT});
+
+      const {response: { brokerId, brokerAccount }} = await sdk.api.getAccountInfo(result.response.legal_token);
+
+      await dispatch({
+        type: Types.auth.ACCOUNT,
+        payload: {
+          brokerId: brokerId,
+          brokerAccount: brokerAccount
+        }
+      });
+
       await setTimeout(async () => {
         await dispatch({
           type: Types.auth.FINISH_VERIFY_CODE
         });
       }, 800)
+
+      await setTimeout(async () => {
+        await dispatch({
+          type: Types.auth.FINISH_BROKER_ACCOUNT
+        });
+      }, 2800)
     } catch (e) {
       dispatch({
         type: Types.auth.ERROR_VERIFY_CODE,
@@ -40,13 +59,16 @@ export function checkPhone(phone) {
   return async dispatch => {
     dispatch({type: Types.auth.START_CHECK_PHONE});
     try {
-      const result = await sdk.api.checkPhone(phone);
+      let phoneParse = phone.replace(new RegExp(/[&\/\\#,+()$~%.'":*?<>{}]/g), '');
+      const result = await sdk.api.checkPhone(phoneParse);
+
       console.log(result);
 
       await dispatch({
         type: Types.auth.SUCCESS_CHECK_PHONE,
         payload: result
       });
+
       await setTimeout(async () => {
         await dispatch({
           type: Types.auth.FINISH_CHECK_PHONE
