@@ -62,6 +62,10 @@ class Account extends Component {
 
   render() {
 
+    console.log('Account PROPS', this.props.mono.auth)
+
+    const {brokerAccount, brokerId, requestLoading} = this.props.mono.auth;
+
     const recommended = [
       { title: "Пароль", id: "PinNotificationsSettings", type: "switch" },
       { title: "Використовувати FaceID", id: "face", type: "switch" },
@@ -75,24 +79,31 @@ class Account extends Component {
         contentContainerStyle={styles.settings}
       >
 
-        {this.props.mono.auth.requestLoading ? (
-          <Loading color={'#23D29C'} size={'small'}/>
+        {requestLoading ? (
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
+            <Loading color={'#23D29C'} size={'small'}/>
+          </View>
         ): (
           <Fragment>
             <Separator/>
             <Block center style={styles.title}>
               <Text style={styles.titleText}>
-                {this.props.mono.auth.brokerId? 'Рахунок': 'Рахунок відсутній'}
+                {brokerId? 'Номер рахунку': 'Рахунок відсутній'}
               </Text>
-              {this.props.mono.auth.brokerId ? (
-                <Text style={{
-                  fontSize: 32,
-                  color: '#3ECD9A',
-                  fontWeight: '700',
-                  textTransform: 'uppercase'
-                }}>
-                  {this.props.mono.auth.brokerId}
-                </Text>
+              {brokerId ? (
+                <Fragment>
+                  <Text style={{
+                    fontSize: 32,
+                    color: '#3ECD9A',
+                    fontWeight: '700',
+                    textTransform: 'uppercase'
+                  }}>
+                    {brokerId}
+                  </Text>
+                  <Text style={styles.subtitleText}>
+                    Рахунок виданий брокером для початку торгів
+                  </Text>
+                </Fragment>
               ): (
                 <Text style={styles.subtitleText}>
                   Відкрийте брокерський рахунок в один клік
@@ -100,7 +111,34 @@ class Account extends Component {
               )}
             </Block>
 
-            {!this.props.mono.auth.brokerId && (
+            <Separator/>
+
+            {brokerId && (
+              <Block center style={styles.title}>
+                <Text style={styles.titleText}>
+                  Баланс рахунку
+                </Text>
+                <Text style={{
+                  fontSize: 32,
+                  color: '#3ECD9A',
+                  fontWeight: '700',
+                  textTransform: 'uppercase'
+                }}>
+                  {brokerAccount} <Text style={{
+                    color: '#ccc',
+                    textTransform: 'lowercase',
+                    fontWeight: '400',}}>
+                    грн
+                  </Text>
+                </Text>
+                <Text style={styles.subtitleText}>
+                  Це не справжні гроші, це демо рахунок
+                </Text>
+              </Block>
+            )}
+
+
+            {!brokerId && (
               <Fragment>
                 <Separator/>
 
@@ -191,6 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   settings: {
+    flexGrow: 1,
     marginTop: 60,
     paddingVertical: theme.SIZES.BASE / 3,
     backgroundColor: monoTheme.COLORS.WHITE

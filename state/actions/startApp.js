@@ -17,14 +17,15 @@ export function startApp() {
       const legalToken = await sdk.storage.getStorage('LegalToken');
 
       if(legalToken){
-        const account = await sdk.api.getAccountInfo(legalToken)
+        const {response: { brokerId, brokerAccount }} = await sdk.api.getAccountInfo(legalToken);
 
-        console.log(account.brokerId);
+        console.log(brokerAccount);
 
         await dispatch({
           type: Types.auth.ACCOUNT,
           payload: {
-            brokerId: account.response.brokerId
+            brokerId: brokerId,
+            brokerAccount: brokerAccount
           }
         });
 

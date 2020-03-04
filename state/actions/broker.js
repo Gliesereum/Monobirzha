@@ -18,7 +18,8 @@ export function requestBrokerAccount() {
       await dispatch({
         type: Types.auth.ACCOUNT,
         payload: {
-          brokerId: account.response.brokerId
+          brokerId: account.response.brokerId,
+          brokerAccount: account.response.brokerAccount
         }
       });
 

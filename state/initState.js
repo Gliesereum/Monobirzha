@@ -32,7 +32,7 @@ export const initState = {
     name: null,
     brokerId: null,
     brokerStatus: 'REQUEST',
-    brokerAccount: null,
+    brokerAccount: 0,
     bankIdAccount: null,
     faceIdActive: false,
     localPinCodeActive: false,

@@ -17,8 +17,9 @@ export default createReducer({
     draft.auth.token = token;
   },
 
-  [Types.auth.ACCOUNT]: (draft, {brokerId}) => {
+  [Types.auth.ACCOUNT]: (draft, {brokerId, brokerAccount}) => {
     draft.auth.brokerId = brokerId;
+    draft.auth.brokerAccount = brokerAccount;
   },
 
   [Types.start.ERROR]: (draft, payload) => {
@@ -68,7 +69,7 @@ export default createReducer({
     draft.auth.phoneRequest = false;
     draft.auth.brokerId = null;
     draft.auth.phone = null;
-    draft.auth.brokerAccount = null;
+    draft.auth.brokerAccount = 0;
     draft.auth.bankIdAccount = null;
     draft.auth.faceIdActive = null;
     draft.auth.localPinCodeActive = null;
