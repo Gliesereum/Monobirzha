@@ -31,7 +31,7 @@ class BondList extends Component {
           <FlatList
             data={ovdpList.map(item => ({
               name: item.cpcode,
-              description: item.cpdescr,
+              description: item.emit_name,
               startDate: item.razm_date,
               aukProc: item.auk_proc,
               isFavorite: true,

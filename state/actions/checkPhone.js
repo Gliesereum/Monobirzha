@@ -71,3 +71,11 @@ export function resetStatePhone() {
     dispatch({type: Types.auth.RESET_CHECK_PHONE});
   }
 }
+
+
+export function logOut() {
+  return async dispatch => {
+    await sdk.storage.remove('LegalToken')
+    dispatch({type: Types.auth.LOG_OUT});
+  }
+}

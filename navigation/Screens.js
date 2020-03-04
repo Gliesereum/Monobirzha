@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,6 +14,7 @@ import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
 
 import monoTheme from '../constants/Theme';
+import BankId from "../screens/BankId";
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
@@ -23,9 +24,11 @@ const BOTTOM_TABS = {
 
 const SIGN_IN_NAMES = {
   SIGN_IN: 'Sign In',
+  BANK_ID: 'Bank ID'
 };
 
 const SignInStack = createStackNavigator();
+
 function SignInNavigation() {
   return (
     <SignInStack.Navigator>
@@ -35,10 +38,14 @@ function SignInNavigation() {
 }
 
 const TabsStack = createBottomTabNavigator();
-function TabsStackScreen() {
+
+function TabsStackScreen({...props}) {
   return (
     <TabsStack.Navigator
-      initialRouteName={BOTTOM_TABS.LIST_TAB}
+      initialRouteName={
+        BOTTOM_TABS.ACCOUNT_TAB
+        //props.brokerId ? BOTTOM_TABS.LIST_TAB : BOTTOM_TABS.ACCOUNT_TAB
+      }
       backBehavior="history"
       tabBarOptions={{
         labelStyle: {
@@ -46,7 +53,8 @@ function TabsStackScreen() {
         },
         style: {
           borderTopWidth: 0,
-          backgroundColor: monoTheme.COLORS.SECONDARY,
+          //backgroundColor: monoTheme.COLORS.SECONDARY,
+          backgroundColor: '#181818',
         },
         activeTintColor: monoTheme.COLORS.ACTIVE
       }}
@@ -55,11 +63,17 @@ function TabsStackScreen() {
         name={BOTTOM_TABS.LIST_TAB}
         component={BondList}
         options={{
-          tabBarLabel: () => {},
-          tabBarIcon: ({ focused }) =>
-            <View style={{ marginTop: 20 }}>
+          tabBarLabel: ({focused}) => (
+            <View>
+              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
+                Список
+              </Text>
+            </View>
+          ),
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 10}}>
               <FontAwesome
-                style={{ alignSelf: 'center' }}
+                style={{alignSelf: 'center'}}
                 name="list"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
@@ -71,12 +85,17 @@ function TabsStackScreen() {
         name={BOTTOM_TABS.PORTFOLIO_TAB}
         component={Portfolio}
         options={{
-          tabBarLabel: () => {
-          },
-          tabBarIcon: ({ focused }) =>
-            <View style={{ marginTop: 20 }}>
+          tabBarLabel: ({focused}) => (
+            <View>
+              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
+                Портфель
+              </Text>
+            </View>
+          ),
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 10}}>
               <FontAwesome
-                style={{ alignSelf: 'center' }}
+                style={{alignSelf: 'center'}}
                 name="briefcase"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
@@ -88,12 +107,28 @@ function TabsStackScreen() {
         name={BOTTOM_TABS.ACCOUNT_TAB}
         component={Account}
         options={{
-          tabBarLabel: () => {
-          },
-          tabBarIcon: ({ focused }) =>
-            <View style={{ marginTop: 20 }}>
+          tabBarLabel: ({focused}) => (
+            <View>
+              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
+                Счет
+              </Text>
+              {!props.brokerId && (
+                <View style={{
+                  backgroundColor: '#CD603E',
+                  width: 15,
+                  height: 15,
+                  position: 'absolute',
+                  right: 0,
+                  top: -30,
+                  borderRadius: 15
+                }}/>
+              )}
+            </View>
+          ),
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 10}}>
               <FontAwesome
-                style={{ alignSelf: 'center' }}
+                style={{alignSelf: 'center'}}
                 name="credit-card-alt"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
@@ -107,20 +142,18 @@ function TabsStackScreen() {
 
 const RootStack = createStackNavigator();
 
-function AppContainer ({ isLoggedIn }) {
+function AppContainer({isLoggedIn, brokerId}) {
   return (
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
-      {
-        isLoggedIn ? (
-          <RootStack.Navigator mode="modal" headerMode="none">
-            <RootStack.Screen name="Tabs" component={TabsStackScreen} />
-            <RootStack.Screen name="BondInfoModal" component={BondSingle}/>
-            <RootStack.Screen name="BondActionModal" component={BondAction}/>
-          </RootStack.Navigator>
-        ) : (
-          <SignInNavigation />
-        )
-      }
+      {isLoggedIn ? (
+        <RootStack.Navigator mode="modal" headerMode="none">
+          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {brokerId})} />
+          <RootStack.Screen name="BondInfoModal" component={BondSingle}/>
+          <RootStack.Screen name="BondActionModal" component={BondAction}/>
+        </RootStack.Navigator>
+      ) : (
+        <SignInNavigation />
+      )}
     </NavigationContainer>
   );
 }

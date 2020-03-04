@@ -17,6 +17,8 @@ class MonoSDK {
       STATUS_API: `${this.config.server}/api/v1/status`,
       CHECK_PHONE: `${this.config.server}/api/v1/patch/check/phone?q=`,
       VERIFY_CODE: `${this.config.server}/api/v1/patch/check/phone/verify`,
+      ACCOUNT_INFO: `${this.config.server}/api/v1/patch/hacker/my`,
+      REQUEST_BROKER: `${this.config.server}/api/v1/patch/broker/request/account`,
       GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
       GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
     };
@@ -32,6 +34,22 @@ class MonoSDK {
         await this._fetchServer(
           this.urls.GET_OVDP_LIST,
           "get"
+        ),
+
+      getAccountInfo: async (token) =>
+        await this._fetchServer(
+          this.urls.ACCOUNT_INFO,
+          "get",
+          undefined,
+          token
+        ),
+
+      requestBrokerAcc: async (token) =>
+        await this._fetchServer(
+          this.urls.REQUEST_BROKER,
+          "get",
+          undefined,
+          token
         ),
 
       getOvdpDetails: async (id) =>
@@ -70,6 +88,13 @@ class MonoSDK {
         } catch (error) {
           console.log(error);
         }
+      },
+      remove: async (keyStore) => {
+        try {
+          await AsyncStorage.removeItem(`@MonoStore:${keyStore}`);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
   }
@@ -82,7 +107,7 @@ class MonoSDK {
     });
 
     if (token)
-      Header.set("Authorization", `Bearer ${token}`);
+      Header.set("Hackathon-Hub", `${token}`);
 
     const Params = {
       method: method,
