@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView,StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 
 import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
@@ -60,16 +60,16 @@ class BondSingle extends Component {
                   name="close"
                   size={24}
                   color={monoTheme.COLORS.PRIMARY}
-                  onPress={() => navigation.navigate('Tabs')}
+                  onPress={() => navigation.navigate('LIST_TAB')}
                 />}
               />
               <ScrollView style={styles.infoContainer}>
                 <InfoField
-                  value={null}
+                  value={bond.nominal*1.018 }
                   label="Ціна купівлі, грн"
                 />
                 <InfoField
-                  value={null}
+                  value={bond.nominal*0.985}
                   label="Ціна продажу, грн"
                 />
                 <InfoField
@@ -99,19 +99,19 @@ class BondSingle extends Component {
               </ScrollView>
               <View style={styles.costWrapper}>
                 <InfoField
-                  value={0}
+                  value={mono.auth.brokerAccount}
                   label="Вільний залишок, грн"
                 />
               </View>
               <View style={styles.buttonWrapper}>
-                <TouchableOpacity onPress={this.handleBuyBond}>
-                  <View style={{ ...styles.buttonBox, backgroundColor: monoTheme.COLORS.MONO }}>
-                    <Text style={styles.buttonText}>Купити</Text>
-                  </View>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={this.handleSellBond}>
                   <View style={styles.buttonBox}>
                     <Text style={styles.buttonText}>Продати</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.handleBuyBond}>
+                  <View style={{ ...styles.buttonBox, backgroundColor: monoTheme.COLORS.ACTIVE }}>
+                    <Text style={styles.buttonText}>Купити</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     width: width - monoTheme.SIZES.BASE * 2,
-    maxHeight: height * 0.5
+    maxHeight: height * 0.5,
+    flex: 1,
   },
   costWrapper: {
     marginTop: monoTheme.SIZES.BASE,
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 48,
     borderRadius: 5,
-    backgroundColor: monoTheme.COLORS.ACTIVE,
+    backgroundColor: monoTheme.COLORS.MONO,
   },
   buttonText: {
     fontSize: monoTheme.SIZES.BUTTON,

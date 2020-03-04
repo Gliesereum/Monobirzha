@@ -9,6 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
 import BondList from '../screens/BondList';
+import OrderList from '../screens/OrderList';
 import BondSingle from '../screens/BondSingle';
 import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
@@ -18,6 +19,7 @@ import BankId from "../screens/BankId";
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
+  ORDERS_TAB: 'ORDERS_TAB',
   PORTFOLIO_TAB: 'PORTFOLIO_TAB',
   ACCOUNT_TAB: 'ACCOUNT_TAB',
 };
@@ -75,6 +77,28 @@ function TabsStackScreen({...props}) {
               <FontAwesome
                 style={{alignSelf: 'center'}}
                 name="list"
+                size={18}
+                color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
+              />
+            </View>
+        }}
+      />
+      <TabsStack.Screen
+        name={BOTTOM_TABS.ORDERS_TAB}
+        component={OrderList}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <View>
+              <Text style={{color: monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}}>
+                Заявки
+              </Text>
+            </View>
+          ),
+          tabBarIcon: ({focused}) =>
+            <View style={{marginTop: 10}}>
+              <FontAwesome
+                style={{alignSelf: 'center'}}
+                name="briefcase"
                 size={18}
                 color={monoTheme.COLORS[focused ? 'ACTIVE' : 'PRIMARY']}
               />

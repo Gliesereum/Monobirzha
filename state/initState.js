@@ -9,6 +9,7 @@ export const initState = {
     bond: null,
     loading: false,
     error: null,
+    actionError: null,
   },
   brokerList: [
     {
@@ -39,4 +40,9 @@ export const initState = {
     pinCode: null,
     error: null
   },
+  orders: {
+    list: [],
+    error: null,
+    loading: false,
+  }
 };

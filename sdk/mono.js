@@ -21,6 +21,7 @@ class MonoSDK {
       REQUEST_BROKER: `${this.config.server}/api/v1/patch/broker/request/account`,
       GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
       GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
+      CREATE_ORDER: `${this.config.server}/api/v1/patch/order/create`,
     };
 
     this.api = {
@@ -68,6 +69,14 @@ class MonoSDK {
         await this._fetchServer(
           this.urls.VERIFY_CODE + `?q=${phone}&code=${code}`,
           "get"
+        ),
+
+      createOrder: async (body, token) =>
+        await this._fetchServer(
+          this.urls.CREATE_ORDER,
+          "post",
+          body,
+          token,
         ),
     };
 
