@@ -56,13 +56,15 @@ class Account extends Component {
           <Fragment>
             <Separator/>
             <Block center style={styles.title}>
-              <View style={{
-                width: 100,
-                height: 100,
-                backgroundColor: '#484848',
-                marginBottom: 20,
-                borderRadius: 100
-              }}/>
+              {brokerId &&(
+                <View style={{
+                  width: 100,
+                  height: 100,
+                  backgroundColor: '#484848',
+                  marginBottom: 20,
+                  borderRadius: 100
+                }}/>
+              )}
               <Text style={styles.titleText}>
                 {brokerId? 'Номер рахунку': 'Рахунок відсутній'}
               </Text>
