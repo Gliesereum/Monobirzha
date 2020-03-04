@@ -4,14 +4,17 @@ import { SafeAreaView, StyleSheet, FlatList, Dimensions, View } from 'react-nati
 
 import ListItem from '../components/ListItem';
 
+import { getOvdpDetails } from '../state/actions/getOvdpDetails';
 import { monoTheme } from '../constants';
 
 const { width } = Dimensions.get('window');
 
 class BondList extends Component {
-  handlePressItem = () => {
-    // onPressItem();
-    // navigation.navigate('BondModal');
+  handlePressItem = async (id) => {
+    const { navigation, getOvdpDetails } = this.props;
+
+    await getOvdpDetails({ id });
+    navigation.navigate('BondInfoModal');
   };
 
   handleElectItem = () => {
@@ -19,20 +22,18 @@ class BondList extends Component {
   };
 
   render() {
-    const {
-      mono,
-      asd,
-    } = this.props;
+    const { mono } = this.props;
     const { ovdpList } = mono;
-    console.log(ovdpList[0].cpcode);
+
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.innerPadding}>
           <FlatList
-            // data={[{ name: 'Test Name', id: Date.now().toString(), description: 'Test Description', isFavorite: true }]} // items
             data={ovdpList.map(item => ({
               name: item.cpcode,
               description: item.emit_name,
+              startDate: item.razm_date,
+              aukProc: item.auk_proc,
               isFavorite: true,
               id: item.id,
             }))}
@@ -61,4 +62,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(state => state, {})(BondList);
+export default connect(state => state, {
+  getOvdpDetails,
+})(BondList);

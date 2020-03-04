@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {FontAwesome} from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome } from '@expo/vector-icons';
 
 import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
 import BondList from '../screens/BondList';
 import BondSingle from '../screens/BondSingle';
+import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
 
 import monoTheme from '../constants/Theme';
@@ -31,7 +32,7 @@ const SignInStack = createStackNavigator();
 function SignInNavigation() {
   return (
     <SignInStack.Navigator>
-      <SignInStack.Screen name={SIGN_IN_NAMES.SIGN_IN} component={SignIn}/>
+      <SignInStack.Screen name={SIGN_IN_NAMES.SIGN_IN} component={SignIn} />
     </SignInStack.Navigator>
   );
 }
@@ -146,11 +147,12 @@ function AppContainer({isLoggedIn, brokerId}) {
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
       {isLoggedIn ? (
         <RootStack.Navigator mode="modal" headerMode="none">
-          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {brokerId})}/>
-          <RootStack.Screen name="BondModal" component={BondSingle}/>
+          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {brokerId})} />
+          <RootStack.Screen name="BondInfoModal" component={BondSingle}/>
+          <RootStack.Screen name="BondActionModal" component={BondAction}/>
         </RootStack.Navigator>
       ) : (
-        <SignInNavigation/>
+        <SignInNavigation />
       )}
     </NavigationContainer>
   );

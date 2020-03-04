@@ -26,4 +26,10 @@ export const Types = {
     FINISH_BROKER_ACCOUNT: "FINISH_BROKER_ACCOUNT/auth",
     ERROR_BROKER_ACCOUNT: "ERROR_BROKER_ACCOUNT/auth",
   },
+  single: {
+    START: "START/single",
+    SUCCESS: "SUCCESS/single",
+    FINISH: "FINISH/single",
+    ERROR: "ERROR/single",
+  }
 };

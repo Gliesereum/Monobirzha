@@ -5,6 +5,11 @@ export const initState = {
     error: null,
   },
   ovdpList: [],
+  single: {
+    bond: null,
+    loading: false,
+    error: null,
+  },
   brokerList: [
     {
       id: 1,
