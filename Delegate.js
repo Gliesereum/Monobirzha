@@ -18,6 +18,9 @@ class Delegate extends Component {
 
   componentDidMount() {
     this.props.startApp();
+    if (this.props.mono.auth.token) {
+      console.log(this.props.mono.auth.token);
+    }
   }
 
   render() {
