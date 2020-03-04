@@ -31,5 +31,11 @@ export const Types = {
     SUCCESS: "SUCCESS/single",
     FINISH: "FINISH/single",
     ERROR: "ERROR/single",
+  },
+  orders: {
+    START_ACTION: "START_ACTION/orders",
+    SUCCESS_ACTION: "SUCCESS_ACTION/orders",
+    FINISH_ACTION: "FINISH_ACTION/orders",
+    ERROR_ACTION: "ERROR_ACTION/orders",
   }
 };

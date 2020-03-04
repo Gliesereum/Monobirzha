@@ -1,6 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import {View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import InfoField from '../components/InfoField';
@@ -8,9 +16,46 @@ import TitleField from '../components/TitleField';
 import Loading from '../patch/Loading';
 
 import monoTheme from '../constants/Theme';
-// import { onSellBond, onBuyBond } from '../state/actions/actionBond';
+import { createOrder } from '../state/actions/createOrder';
 
 const { height, width } = Dimensions.get('window');
+
+function AlertOnPress({ isSellMode, isError, numberOfBonds, priceOfBond, sumPrice, navigation }) {
+  if (!isError) {
+    Alert.alert(
+      'Вітаємо',
+      `
+      Ви ${isSellMode ? 'продали' : 'купили'} ${numberOfBonds} облігацій за ціною ${priceOfBond} грн\n
+      Сума: ${sumPrice} грн
+      `,
+      [
+        {
+          text: 'Повернутись до списку',
+          onPress: () => navigation.navigate('LIST_TAB'),
+        },
+        {
+          text: 'Заявки',
+          onPress: () => navigation.navigate('PORTFOLIO_TAB'),
+        },
+      ],
+    );
+  } else {
+    Alert.alert(
+      'Помилка',
+      'Щось пішло не так',
+      [
+        {
+          text: 'Повернутись до списку',
+          onPress: () => navigation.navigate('LIST_TAB'),
+        },
+        {
+          text: 'Спробувати ще раз',
+          style: 'cancel',
+        },
+      ],
+    );
+  }
+}
 
 class BondAction extends Component {
   state = {
@@ -37,21 +82,42 @@ class BondAction extends Component {
 
   handleSellBond = async () => {
     const { numberOfBonds, priceOfBond, sumPrice } = this.state;
+    const { mono, navigation, createOrder } = this.props;
+    const { actionError, bond } = mono.single;
 
-    // await onSellBond();
+    await createOrder({
+      cpcode: bond.cpcode,
+      flag: 'sell',
+      count: numberOfBonds,
+      price: priceOfBond,
+    });
+    AlertOnPress({ isError: actionError, isSellMode: true, numberOfBonds, priceOfBond, sumPrice, navigation });
   };
 
   handleBuyBond = async () => {
     const { numberOfBonds, priceOfBond, sumPrice } = this.state;
+    const { mono, navigation, createOrder } = this.props;
+    const { actionError, bond } = mono.single;
 
-    // await onBuyBond();
+    await createOrder({
+      cpcode: bond.cpcode,
+      flag: 'buy',
+      count: numberOfBonds,
+      price: priceOfBond,
+    });
+    AlertOnPress({ isError: actionError, isSellMode: false, numberOfBonds, priceOfBond, sumPrice, navigation });
   };
 
   render() {
-    const { mono, navigation, route, onSellBond, onBuyBond } = this.props;
+    const { mono, navigation, route } = this.props;
     const { bond, loading } = mono.single;
     const { numberOfBonds, priceOfBond, sumPrice } = this.state;
     const { isSellMode } = route.params;
+    const isDisabled = (!isSellMode && mono.auth.brokerAccount < sumPrice) || !sumPrice;
+
+    if (!priceOfBond && bond) {
+      this.handleChangePriceOfBond(isSellMode ? bond.nominal * 0.985 : bond.nominal * 1.018);
+    }
 
     return (
       <View style={styles.container}>
@@ -75,7 +141,7 @@ class BondAction extends Component {
           />
           <InfoField
             isFieldDynamic={true}
-            defaultValue={priceOfBond}
+            defaultValue={(priceOfBond && priceOfBond.toString())}
             label={isSellMode ? 'Ціна продажі' : 'Ціна торгівлі'}
             onFieldChange={this.handleChangePriceOfBond}
           />
@@ -84,9 +150,20 @@ class BondAction extends Component {
             label="Сума"
           />
         </ScrollView>
-        <View style={{ ...styles.buttonWrapper, backgroundColor: monoTheme.COLORS[isSellMode ? 'ACTIVE' : 'MONO'] }}>
-          <TouchableOpacity onPress={isSellMode ? this.handleSellBond : this.handleBuyBond}>
-            <Text style={styles.buttonText}>{isSellMode ? 'Продати' : 'Купити'}</Text>
+        <View
+          style={{
+            ...styles.buttonWrapper,
+            backgroundColor: isDisabled ? '#0C0C0C' : monoTheme.COLORS[isSellMode ? 'MONO' : 'ACTIVE'],
+          }}
+        >
+          <TouchableOpacity
+            disabled={isDisabled}
+            onPress={isSellMode ? this.handleSellBond : this.handleBuyBond}
+            style={styles.touchBox}
+          >
+            <Text style={{ ...styles.buttonText, color: isDisabled ? '#69758e' : monoTheme.COLORS.PRIMARY }}>
+              {isSellMode ? 'Продати' : 'Купити'}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -117,13 +194,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: monoTheme.COLORS.MONO,
   },
+  touchBox: {
+    flex: 1,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   buttonText: {
     fontSize: monoTheme.SIZES.BUTTON,
-    color: monoTheme.COLORS.PRIMARY,
   }
 });
 
 export default connect(state => state, {
-  // onSellBond,
-  // onBuyBond,
+  createOrder,
 })(BondAction)

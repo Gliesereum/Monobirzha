@@ -243,6 +243,7 @@ const styles = StyleSheet.create({
   settings: {
     flexGrow: 1,
     marginTop: 60,
+    flex: 1,
     paddingVertical: theme.SIZES.BASE / 3,
     backgroundColor: monoTheme.COLORS.WHITE
   },
