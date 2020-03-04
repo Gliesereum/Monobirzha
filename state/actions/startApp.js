@@ -17,17 +17,6 @@ export function startApp() {
       const legalToken = await sdk.storage.getStorage('LegalToken');
 
       if(legalToken){
-        const {response: { brokerId, brokerAccount }} = await sdk.api.getAccountInfo(legalToken);
-
-        console.log(brokerAccount);
-
-        await dispatch({
-          type: Types.auth.ACCOUNT,
-          payload: {
-            brokerId: brokerId,
-            brokerAccount: brokerAccount
-          }
-        });
 
         await dispatch({
           type: Types.start.LEGAL,
@@ -35,6 +24,16 @@ export function startApp() {
             token: legalToken
           }
         });
+
+        // const account = await sdk.api.getAccountInfo(legalToken);
+        //
+        // await dispatch({
+        //   type: Types.auth.ACCOUNT,
+        //   payload: {
+        //     brokerId: account.response.brokerId,
+        //     brokerAccount: account.response.brokerAccount
+        //   }
+        // });
       }
 
       await setTimeout(async () => {

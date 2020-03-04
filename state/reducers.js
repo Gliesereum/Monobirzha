@@ -82,6 +82,7 @@ export default createReducer({
 
   [Types.auth.SUCCESS_BROKER_ACCOUNT]: (draft, payload) => {
     draft.auth.brokerId = payload.response.brokerId;
+    draft.auth.brokerAccount = payload.response.brokerAccount;
   },
 
   [Types.auth.FINISH_BROKER_ACCOUNT]:

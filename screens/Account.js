@@ -17,52 +17,21 @@ import Icon from "../components/Icon";
 import { monoTheme } from '../constants';
 import Separator from "../components/Separator";
 import {logOut} from "../state/actions/checkPhone";
-import {requestBrokerAccount} from "../state/actions/broker";
+import {getBrokerAccInfo, requestBrokerAccount} from "../state/actions/broker";
 import Loading from "../patch/Loading";
 
 class Account extends Component {
+
   state = {};
+
+  componentDidMount() {
+    this.props.getBrokerAccInfo()
+  }
 
   toggleSwitch = switchNumber =>
     this.setState({ [switchNumber]: !this.state[switchNumber] });
 
-  renderItem = ({ item }) => {
-    const { navigate } = this.props.navigation;
-
-    switch (item.type) {
-      case "switch":
-        return (
-          <Block row middle space="between" style={styles.rows}>
-            <Text style={styles.settingOption1}>{item.title}</Text>
-            <Switch
-              onValueChange={() => this.toggleSwitch(item.id)}
-              value={this.state[item.id]}
-            />
-          </Block>
-        );
-      case "button":
-        return (
-          <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigate(item.id)}>
-              <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text style={styles.settingOption2}>{item.title}</Text>
-                <Icon
-                  name="minimal-right2x"
-                  family="NowExtra"
-                  style={{ paddingRight: 5 }}
-                />
-              </Block>
-            </TouchableOpacity>
-          </Block>
-        );
-      default:
-        break;
-    }
-  };
-
   render() {
-
-    console.log('Account PROPS', this.props.mono.auth)
 
     const {brokerAccount, brokerId, requestLoading} = this.props.mono.auth;
 
@@ -87,6 +56,13 @@ class Account extends Component {
           <Fragment>
             <Separator/>
             <Block center style={styles.title}>
+              <View style={{
+                width: 100,
+                height: 100,
+                backgroundColor: '#484848',
+                marginBottom: 20,
+                borderRadius: 100
+              }}/>
               <Text style={styles.titleText}>
                 {brokerId? 'Номер рахунку': 'Рахунок відсутній'}
               </Text>
@@ -221,6 +197,40 @@ class Account extends Component {
       </ScrollView>
     )
   }
+
+  renderItem = ({ item }) => {
+    const { navigate } = this.props.navigation;
+
+    switch (item.type) {
+      case "switch":
+        return (
+          <Block row middle space="between" style={styles.rows}>
+            <Text style={styles.settingOption1}>{item.title}</Text>
+            <Switch
+              onValueChange={() => this.toggleSwitch(item.id)}
+              value={this.state[item.id]}
+            />
+          </Block>
+        );
+      case "button":
+        return (
+          <Block style={styles.rows}>
+            <TouchableOpacity onPress={() => navigate(item.id)}>
+              <Block row middle space="between" style={{ paddingTop: 7 }}>
+                <Text style={styles.settingOption2}>{item.title}</Text>
+                <Icon
+                  name="minimal-right2x"
+                  family="NowExtra"
+                  style={{ paddingRight: 5 }}
+                />
+              </Block>
+            </TouchableOpacity>
+          </Block>
+        );
+      default:
+        break;
+    }
+  };
 }
 
 const styles = StyleSheet.create({
@@ -266,4 +276,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(state => state, {logOut, requestBrokerAccount})(Account);
+export default connect(state => state, {
+  logOut,
+  requestBrokerAccount,
+  getBrokerAccInfo
+})(Account);
