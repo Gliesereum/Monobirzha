@@ -6,7 +6,7 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ marginTop: 50, color: 'yellow' }}>Portfolio</Text>
+        <Text>Portfolio</Text>
       </View>
     );
   }

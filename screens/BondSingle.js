@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView,StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 
 import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';

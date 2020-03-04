@@ -71,15 +71,13 @@ class MonoSDK {
           "get"
         ),
 
-      createOrder: async (body, token) => {
-        console.log(body, token);
+      createOrder: async (body, token) =>
         await this._fetchServer(
           this.urls.CREATE_ORDER,
           "post",
           body,
           token,
-        );
-      }
+        ),
     };
 
     this.storage = {
