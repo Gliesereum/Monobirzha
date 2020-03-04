@@ -14,7 +14,7 @@ const COLORS = {
 const SIZES = {
   BASE: 16,
   CARD_ROUNDED: 16 * 0.5,
-  FONT: 18,
+  FONT: 16,
   TITLE: 24,
   SUB_TITLE: 18,
   BUTTON: 18,

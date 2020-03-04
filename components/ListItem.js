@@ -14,16 +14,37 @@ export default function ListItem({ item, onPressItem, onElectItem }) {
       activeOpacity={0.5}
     >
       <View style={styles.infoBox}>
-        <Text style={styles.infoTitle} numberOfLines={1}>{item.name}</Text>
-        <Text style={styles.infoDescr}>{item.description}</Text>
+        <Text style={styles.infoTitle} numberOfLines={1}>
+          {item.name}
+        </Text>
+
         <View style={styles.startDateBox}>
-          <Text style={styles.startDateLabel}>Дата розміщення</Text>
-          <Text style={styles.startDateValue}>{item.startDate}</Text>
+          <Text style={styles.startDateLabel}>
+            Емітент
+          </Text>
+          <Text style={styles.startDateValue}>
+            {item.description}
+          </Text>
         </View>
+
+        <View style={styles.startDateBox}>
+          <Text style={styles.startDateLabel}>
+            Дата розміщення
+          </Text>
+          <Text style={styles.startDateValue}>
+            {item.startDate}
+          </Text>
+        </View>
+
         <View style={styles.aukProcBox}>
-          <Text style={styles.aukProcLabel}>Відсоткова ставка, %</Text>
-          <Text style={styles.aukProcValue}>{item.aukProc}</Text>
+          <Text style={styles.aukProcLabel}>
+            Відсоткова ставка, %
+          </Text>
+          <Text style={styles.aukProcValue}>
+            {item.aukProc}
+          </Text>
         </View>
+
       </View>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -33,7 +54,7 @@ export default function ListItem({ item, onPressItem, onElectItem }) {
         <Ionicons
           style={{ alignSelf:'center' }}
           name={item.isFavorite ? 'ios-star' : 'ios-star-outline'}
-          size={32}
+          size={22}
           color={monoTheme.COLORS[item.isFavorite ? 'ACTIVE' : 'PRIMARY']}
         />
       </TouchableOpacity>
@@ -43,15 +64,14 @@ export default function ListItem({ item, onPressItem, onElectItem }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 160,
+    height: 110,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
-    padding: monoTheme.SIZES.BASE,
-    borderWidth: 1,
-    borderColor: monoTheme.COLORS.NEUTRAL,
-    borderRadius: 5,
+    marginBottom: 0,
+    //padding: monoTheme.SIZES.BASE,
+    borderWidth: 2,
+    borderBottomColor: monoTheme.COLORS.NEUTRAL,
   },
   infoBox: {
     alignItems: 'flex-start',
@@ -59,17 +79,20 @@ const styles = StyleSheet.create({
     width: width - (monoTheme.SIZES.BASE * 2) - (width * 0.2),
   },
   infoTitle: {
-    color: monoTheme.COLORS.PRIMARY,
-    fontSize: 16,
-    marginBottom: 8,
+    //color: monoTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.MONO,
+    fontSize: 22,
+    marginBottom: 2,
+    fontWeight: 'bold'
   },
-  infoDescr: {
+  infoDesc: {
     color: monoTheme.COLORS.PRIMARY,
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: 2,
   },
   startDateBox: {
-    marginBottom: 8,
+    flexDirection: 'row',
+    marginBottom: 2,
   },
   startDateLabel: {
     color: monoTheme.COLORS.PRIMARY,
@@ -77,11 +100,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   startDateValue: {
-    color: monoTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.ACTIVE,
     lineHeight: 16,
-    fontSize: 12,
+    fontSize: 14,
+    marginLeft: 4,
+    fontWeight: 'bold'
   },
   aukProcBox: {
+    flexDirection: 'row',
     marginBottom: 8,
   },
   aukProcLabel: {
@@ -90,9 +116,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   aukProcValue: {
-    color: monoTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.ACTIVE,
     lineHeight: 16,
     fontSize: 12,
+    marginLeft: 4,
+    fontWeight: 'bold'
   },
   iconBox: {
     flexDirection: 'row',

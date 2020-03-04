@@ -50,10 +50,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: monoTheme.COLORS.PRIMARY,
-    height: 48,
-    padding: monoTheme.SIZES.BASE,
-    marginBottom: monoTheme.SIZES.BASE,
+    borderBottomColor: monoTheme.COLORS.NEUTRAL,
+    height: 40,
+    //padding: monoTheme.SIZES.BASE,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 4,
   },
   labelBox: {
 
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
 
   },
   valueText: {
-    color: monoTheme.COLORS.PRIMARY,
+    color: monoTheme.COLORS.ACTIVE,
     fontSize: monoTheme.SIZES.FONT,
     lineHeight: monoTheme.SIZES.FONT,
   },
@@ -78,6 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: monoTheme.COLORS.PRIMARY,
     width: (width - monoTheme.SIZES.BASE) * 0.5,
     height: 32,
-    fontSize: 14,
+    fontSize: 16,
   },
 });

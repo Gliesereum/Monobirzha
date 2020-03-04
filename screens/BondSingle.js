@@ -6,7 +6,7 @@ import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
 import Loading from '../patch/Loading';
 import monoTheme from '../constants/Theme';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window');
 
@@ -55,17 +55,19 @@ class BondSingle extends Component {
               <TitleField
                 title={bond.cpcode || 'Title'}
                 subTitle={bond.cpdescr || null}
-                closeIcon={<FontAwesome
-                  style={{ alignSelf:'center' }}
-                  name="close"
-                  size={24}
-                  color={monoTheme.COLORS.PRIMARY}
-                  onPress={() => navigation.navigate('LIST_TAB')}
-                />}
+                closeIcon={
+                  <Ionicons
+                    style={{ alignSelf:'center' }}
+                    name="ios-close-circle-outline"
+                    size={44}
+                    color={monoTheme.COLORS.MONO}
+                    onPress={() => navigation.navigate('LIST_TAB')}
+                  />
+                }
               />
               <ScrollView style={styles.infoContainer}>
                 <InfoField
-                  value={bond.nominal*1.018 }
+                  value={bond.nominal*1.018}
                   label="Ціна купівлі, грн"
                 />
                 <InfoField
@@ -74,7 +76,7 @@ class BondSingle extends Component {
                 />
                 <InfoField
                   value={bond.nominal}
-                  label="Номінал, грн"
+                  label="Номінал"
                 />
                 <InfoField
                   value={bond.razm_date}
@@ -89,20 +91,22 @@ class BondSingle extends Component {
                   label="Процентна ставка"
                 />
                 <InfoField
-                  value={null}
-                  label={this.getNcd(bond.payments ? bond.payments.length - 1 : -1)}
+                  value={this.getNcd(bond.payments ? bond.payments.length - 1 : -1)}
+                  label={"НКД"}
                 />
                 <InfoField
                   value={null}
                   label="Дата наступної виплати"
                 />
               </ScrollView>
+
               <View style={styles.costWrapper}>
                 <InfoField
                   value={mono.auth.brokerAccount}
                   label="Вільний залишок, грн"
                 />
               </View>
+
               <View style={styles.buttonWrapper}>
                 <TouchableOpacity onPress={this.handleSellBond}>
                   <View style={styles.buttonBox}>
@@ -132,13 +136,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoContainer: {
-    width: width - monoTheme.SIZES.BASE * 2,
-    maxHeight: height * 0.5,
+    width: width,
+    //maxHeight: height * 0.5,
+    //backgroundColor: '#131313',
     flex: 1,
   },
   costWrapper: {
-    marginTop: monoTheme.SIZES.BASE,
-    width: width - monoTheme.SIZES.BASE * 2,
+    //marginTop: monoTheme.SIZES.BASE,
+    width: width,
     height: monoTheme.SIZES.BASE * 4,
   },
   buttonWrapper: {

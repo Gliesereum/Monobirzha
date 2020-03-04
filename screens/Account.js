@@ -118,7 +118,7 @@ class Account extends Component {
 
             {!brokerId && (
               <Fragment>
-                <Separator/>
+                {/*<Separator/>*/}
 
                 <View style={{flex: 1, marginTop: 0}}>
                   <Block center style={styles.title}>
@@ -241,9 +241,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   settings: {
-    flexGrow: 1,
     marginTop: 60,
-    flex: 1,
+    //flex: 1,
     paddingVertical: theme.SIZES.BASE / 3,
     backgroundColor: monoTheme.COLORS.WHITE
   },
