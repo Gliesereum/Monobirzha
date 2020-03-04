@@ -10,6 +10,7 @@ import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
 import BondList from '../screens/BondList';
 import BondSingle from '../screens/BondSingle';
+import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
 
 import monoTheme from '../constants/Theme';
@@ -113,7 +114,8 @@ function AppContainer ({ isLoggedIn }) {
         isLoggedIn ? (
           <RootStack.Navigator mode="modal" headerMode="none">
             <RootStack.Screen name="Tabs" component={TabsStackScreen} />
-            <RootStack.Screen name="BondModal" component={BondSingle}/>
+            <RootStack.Screen name="BondInfoModal" component={BondSingle}/>
+            <RootStack.Screen name="BondActionModal" component={BondAction}/>
           </RootStack.Navigator>
         ) : (
           <SignInNavigation />

@@ -12,11 +12,15 @@ const { height, width } = Dimensions.get('window');
 
 class BondSingle extends Component {
   handleBuyBond = () => {
-    this.props.onBuy();
+    const { navigation } = this.props;
+
+    navigation.navigate('BondActionModal', { isSellMode: false });
   };
 
   handleSellBond = () => {
-    this.props.onSell();
+    const { navigation } = this.props;
+
+    navigation.navigate('BondActionModal', { isSellMode: true });
   };
 
   getNcd = (index) => {
@@ -56,7 +60,7 @@ class BondSingle extends Component {
                   name="close"
                   size={24}
                   color={monoTheme.COLORS.PRIMARY}
-                  onPress={() =>  navigation.goBack()}
+                  onPress={() => navigation.navigate('Tabs')}
                 />}
               />
               <ScrollView style={styles.infoContainer}>
@@ -86,7 +90,7 @@ class BondSingle extends Component {
                 />
                 <InfoField
                   value={null}
-                  label={this.getNcd(bond.payments.length - 1)}
+                  label={this.getNcd(bond.payments ? bond.payments.length - 1 : -1)}
                 />
                 <InfoField
                   value={null}

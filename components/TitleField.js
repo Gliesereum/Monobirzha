@@ -9,6 +9,7 @@ export default function TitleField({
   title = '',
   subTitle = null,
   closeIcon,
+  backIcon,
 }) {
   return (
     <View style={styles.container}>
@@ -18,8 +19,15 @@ export default function TitleField({
       </View>
       {
         closeIcon && (
-          <View style={styles.iconBox}>
+          <View style={styles.closeIconBox}>
             {closeIcon}
+          </View>
+        )
+      }
+      {
+        backIcon && (
+          <View style={styles.backIconBox}>
+            {backIcon}
           </View>
         )
       }
@@ -37,19 +45,27 @@ const styles = StyleSheet.create({
   centralBox: {
     justifyContent: 'center',
   },
-  iconBox: {
-    zIndex: 999,
-    position: 'absolute',
-    top: monoTheme.SIZES.BASE,
-    right: monoTheme.SIZES.BASE,
-  },
   title: {
+    textAlign: 'center',
     color: monoTheme.COLORS.PRIMARY,
     fontSize: monoTheme.SIZES.TITLE,
     marginBottom: monoTheme.SIZES.BASE,
   },
   subTitle: {
+    textAlign: 'center',
     color: monoTheme.COLORS.PRIMARY,
     fontSize: monoTheme.SIZES.SUB_TITLE,
+  },
+  closeIconBox: {
+    zIndex: 999,
+    position: 'absolute',
+    top: monoTheme.SIZES.BASE,
+    right: monoTheme.SIZES.BASE,
+  },
+  backIconBox: {
+    zIndex: 999,
+    position: 'absolute',
+    top: monoTheme.SIZES.BASE + 4,
+    left: monoTheme.SIZES.BASE,
   },
 });

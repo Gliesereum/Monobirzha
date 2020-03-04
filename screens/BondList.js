@@ -14,7 +14,7 @@ class BondList extends Component {
     const { navigation, getOvdpDetails } = this.props;
 
     await getOvdpDetails({ id });
-    navigation.navigate('BondModal');
+    navigation.navigate('BondInfoModal');
   };
 
   handleElectItem = () => {
