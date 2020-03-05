@@ -22,7 +22,8 @@ class MonoSDK {
       GET_OVDP_LIST: `${this.config.server}/api/v1/patch/ovdp/list`,
       GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
       CREATE_ORDER: `${this.config.server}/api/v1/patch/order/create`,
-    };
+      GET_ORDER_LIST: `${this.config.server}/api/v1/patch/order/list`,
+    }
 
     this.api = {
       statusApi: async () =>
@@ -45,6 +46,14 @@ class MonoSDK {
           token
         ),
 
+      getOrderList: async (token) =>
+        await this._fetchServer(
+          this.urls.GET_ORDER_LIST,
+          "get",
+          undefined,
+          token
+        ),
+
       requestBrokerAcc: async (token) =>
         await this._fetchServer(
           this.urls.REQUEST_BROKER,
@@ -61,7 +70,8 @@ class MonoSDK {
 
       checkPhone: async phone =>
         await this._fetchServer(
-          this.urls.CHECK_PHONE + phone + `${development && '&dev=08a4dc90b3f58ec0.key'}`,
+          //this.urls.CHECK_PHONE + phone + `${development && '&dev=08a4dc90b3f58ec0.key'}`,
+          this.urls.CHECK_PHONE + phone,
           "get"
         ),
 

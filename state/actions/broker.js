@@ -3,6 +3,7 @@ import sdk from "../../sdk";
 
 export function getBrokerAccInfo() {
   return async dispatch => {
+    dispatch({type: Types.auth.START_BROKER_ACCOUNT});
     try {
       const legal = await sdk.storage.getStorage('LegalToken');
       const account = await sdk.api.getAccountInfo(legal);
@@ -17,9 +18,13 @@ export function getBrokerAccInfo() {
 
       await setTimeout(async () => {
         await dispatch({type: Types.auth.FINISH_BROKER_ACCOUNT});
-      }, 0)
+      }, 1800)
 
     } catch (e) {
+
+      setTimeout(async () => {
+        dispatch({type: Types.auth.FINISH_BROKER_ACCOUNT});
+      }, 0)
 
     }
   }

@@ -25,15 +25,15 @@ export function startApp() {
           }
         });
 
-        // const account = await sdk.api.getAccountInfo(legalToken);
-        //
-        // await dispatch({
-        //   type: Types.auth.ACCOUNT,
-        //   payload: {
-        //     brokerId: account.response.brokerId,
-        //     brokerAccount: account.response.brokerAccount
-        //   }
-        // });
+        const account = await sdk.api.getAccountInfo(legalToken);
+
+        await dispatch({
+          type: Types.auth.ACCOUNT,
+          payload: {
+            brokerId: account.response.brokerId,
+            brokerAccount: account.response.brokerAccount
+          }
+        });
       }
 
       await setTimeout(async () => {

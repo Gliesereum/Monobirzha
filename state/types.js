@@ -37,5 +37,10 @@ export const Types = {
     SUCCESS_ACTION: "SUCCESS_ACTION/orders",
     FINISH_ACTION: "FINISH_ACTION/orders",
     ERROR_ACTION: "ERROR_ACTION/orders",
+
+    START_LIST: "START_LIST/orders",
+    SUCCESS_LIST: "SUCCESS_LIST/orders",
+    FINISH_LIST: "FINISH_LIST/orders",
+    ERROR_LIST: "ERROR_LIST/orders",
   }
 };

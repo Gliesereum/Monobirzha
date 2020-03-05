@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  FlatList
+  FlatList,
+  RefreshControl
 } from 'react-native';
 
 import { Block, Text, theme } from "galio-framework";
@@ -46,17 +47,25 @@ class Account extends Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.settings}
+        refreshControl={
+          <RefreshControl refreshing={requestLoading} onRefresh={e => this.props.getBrokerAccInfo()} />
+        }
       >
 
         {requestLoading ? (
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center'}}>
+          <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignContent: 'center'
+          }}>
             <Loading color={'#23D29C'} size={'small'}/>
           </View>
         ): (
           <Fragment>
             <Separator/>
             <Block center style={styles.title}>
-              {brokerId &&(
+              {/*{brokerId &&(
                 <View style={{
                   width: 100,
                   height: 100,
@@ -64,7 +73,7 @@ class Account extends Component {
                   marginBottom: 20,
                   borderRadius: 100
                 }}/>
-              )}
+              )}*/}
               <Text style={styles.titleText}>
                 {brokerId? 'Номер рахунку': 'Рахунок відсутній'}
               </Text>
@@ -242,7 +251,7 @@ const styles = StyleSheet.create({
   },
   settings: {
     marginTop: 60,
-    //flex: 1,
+    flexGrow: 1,
     paddingVertical: theme.SIZES.BASE / 3,
     backgroundColor: monoTheme.COLORS.WHITE
   },

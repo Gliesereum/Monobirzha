@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   StatusBar,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native'
 import {GalioProvider} from 'galio-framework';
 import {connect} from 'react-redux';
@@ -13,14 +13,15 @@ import Loading from "./patch/Loading";
 
 import {monoTheme} from './constants';
 import AppContainer from './navigation/Screens';
+import Canvas from 'react-native-canvas';
+
+
+
 
 class Delegate extends Component {
 
   componentDidMount() {
     this.props.startApp();
-    if (this.props.mono.auth.token) {
-      console.log(this.props.mono.auth.token);
-    }
   }
 
   render() {

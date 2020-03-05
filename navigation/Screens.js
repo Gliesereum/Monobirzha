@@ -41,12 +41,11 @@ function SignInNavigation() {
 
 const TabsStack = createBottomTabNavigator();
 
-function TabsStackScreen({...props}) {
+function TabsStackScreen() {
   return (
     <TabsStack.Navigator
       initialRouteName={
         BOTTOM_TABS.ACCOUNT_TAB
-        //props.brokerId ? BOTTOM_TABS.LIST_TAB : BOTTOM_TABS.ACCOUNT_TAB
       }
       backBehavior="history"
       tabBarOptions={{
@@ -55,7 +54,6 @@ function TabsStackScreen({...props}) {
         },
         style: {
           borderTopWidth: 0,
-          //backgroundColor: monoTheme.COLORS.SECONDARY,
           backgroundColor: '#181818',
         },
         activeTintColor: monoTheme.COLORS.ACTIVE
@@ -111,7 +109,7 @@ function TabsStackScreen({...props}) {
             </View>
         }}
       />
-      <TabsStack.Screen
+     {/* <TabsStack.Screen
         name={BOTTOM_TABS.PORTFOLIO_TAB}
         component={Portfolio}
         options={{
@@ -135,7 +133,7 @@ function TabsStackScreen({...props}) {
               />
             </View>
         }}
-      />
+      />*/}
       <TabsStack.Screen
         name={BOTTOM_TABS.ACCOUNT_TAB}
         component={Account}
@@ -148,17 +146,6 @@ function TabsStackScreen({...props}) {
               }}>
                 Рахунок
               </Text>
-              {!props.brokerId && (
-                <View style={{
-                  backgroundColor: '#CD603E',
-                  width: 15,
-                  height: 15,
-                  position: 'absolute',
-                  right: 0,
-                  top: -30,
-                  borderRadius: 15
-                }}/>
-              )}
             </View>
           ),
           tabBarIcon: ({focused}) =>
@@ -178,12 +165,12 @@ function TabsStackScreen({...props}) {
 
 const RootStack = createStackNavigator();
 
-function AppContainer({isLoggedIn, brokerId}) {
+function AppContainer({isLoggedIn}) {
   return (
     <NavigationContainer theme={{colors: {background: 'rgb(0, 0, 0)'}}}>
       {isLoggedIn ? (
         <RootStack.Navigator mode="modal" headerMode="none">
-          <RootStack.Screen name="Tabs" component={TabsStackScreen.bind(null, {brokerId})} />
+          <RootStack.Screen name="Tabs" component={TabsStackScreen} />
           <RootStack.Screen name="BondInfoModal" component={BondSingle}/>
           <RootStack.Screen name="BondActionModal" component={BondAction}/>
         </RootStack.Navigator>

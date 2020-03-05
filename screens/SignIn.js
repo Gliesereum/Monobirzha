@@ -75,7 +75,7 @@ class SignIn extends Component {
                         borderRadius: 8,
                       }}
                       textStyle={{
-                        fontSize: 24,
+                        fontSize: 18,
                         color: "#fff",
                         padding: 0
                       }}

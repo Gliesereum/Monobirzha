@@ -104,21 +104,32 @@ export default createReducer({
 
   // ---------------  ORDERS  -----------------//
 
-  [Types.orders.START_ACTION]:
-    draft => draft.orders.loading = true,
+  // [Types.orders.START_ACTION]:
+  //   draft => draft.orders.loading = true,
+  //
+  // [Types.orders.SUCCESS_ACTION]:(draft, payload) => {
+  //   draft.orders.list = draft.orders.list.concat(payload);
+  //   //draft.orders.list = draft.orders.list.concat(payload);
+  //   draft.orders.error = undefined;
+  //   draft.single.actionError = undefined;
+  // },
+  //
+  // [Types.orders.ERROR_ACTION]: (draft, payload) => {
+  //   draft.orders.error = payload;
+  //   draft.single.actionError = payload;
+  // },
+  //
+  // [Types.orders.FINISH_ACTION]:
+  //   draft => draft.orders.loading = false,
 
-  [Types.orders.SUCCESS_ACTION]:(draft, payload) => {
-    draft.orders.list = draft.orders.list.concat(payload);
-    draft.orders.error = undefined;
-    draft.single.actionError = undefined;
+  // ---------------  ORDERS  -----------------//
+
+  [Types.orders.START_LIST]: draft => draft.orders.loading = true,
+
+  [Types.orders.SUCCESS_LIST]:(draft, payload) => {
+    draft.orders.list = payload;
   },
 
-  [Types.orders.ERROR_ACTION]: (draft, payload) => {
-    draft.orders.error = payload;
-    draft.single.actionError = payload;
-  },
-
-  [Types.orders.FINISH_ACTION]:
-    draft => draft.orders.loading = false,
+  [Types.orders.FINISH_LIST]: draft => draft.orders.loading = false,
 
 }, initState);
