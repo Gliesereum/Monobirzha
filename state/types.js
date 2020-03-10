@@ -42,5 +42,16 @@ export const Types = {
     SUCCESS_LIST: "SUCCESS_LIST/orders",
     FINISH_LIST: "FINISH_LIST/orders",
     ERROR_LIST: "ERROR_LIST/orders",
+
+    CHANGE_STATUS_MODE: "CHANGE_STATUS_MODE/orders",
+    SUCCESS_FILTER_LIST: "SUCCESS_FILTER_LIST/orders",
+
+    PORTFOLIO_LIST: "PORTFOLIO_LIST/orders",
+  },
+  portfolio: {
+    START_LIST: "START_LIST/portfolio",
+    SUCCESS_LIST: "SUCCESS_LIST/portfolio",
+    FINISH_LIST: "FINISH_LIST/portfolio",
+    ERROR_LIST: "ERROR_LIST/portfolio",
   }
 };

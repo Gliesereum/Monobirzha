@@ -37,16 +37,14 @@ export default function TitleField({
 
 const styles = StyleSheet.create({
   container: {
-    //padding: monoTheme.SIZES.BASE,
-    //backgroundColor: 'red',
-    paddingTop: 40,
+    paddingTop: monoTheme.SIZES.BASE,
     paddingBottom: 10,
     alignItems: 'center',
     position: 'relative',
     width: width - monoTheme.SIZES.BASE * 2,
-    //width: width,
     borderBottomColor: monoTheme.COLORS.NEUTRAL,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    marginBottom: monoTheme.SIZES.BASE,
   },
   centralBox: {
     justifyContent: 'center',
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: monoTheme.COLORS.ACTIVE,
     fontSize: monoTheme.SIZES.TITLE,
-    marginBottom: monoTheme.SIZES.BASE,
+    marginBottom: monoTheme.SIZES.BASE / 2,
     fontWeight: 'bold'
   },
   subTitle: {

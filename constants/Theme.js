@@ -14,10 +14,10 @@ const COLORS = {
 const SIZES = {
   BASE: 16,
   CARD_ROUNDED: 16 * 0.5,
-  FONT: 16,
-  TITLE: 24,
-  SUB_TITLE: 18,
-  BUTTON: 18,
+  FONT: 12,
+  TITLE: 16,
+  SUB_TITLE: 14,
+  BUTTON: 12,
 };
 
 export default {

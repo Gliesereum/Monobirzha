@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, StyleSheet, FlatList, Dimensions, View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList, Dimensions, View } from 'react-native';
 
 import ListItem from '../components/ListItem';
+import ScreenTitle from '../components/ScreenTitle';
 
 import { getOvdpDetails } from '../state/actions/getOvdpDetails';
 import { monoTheme } from '../constants';
@@ -27,21 +28,7 @@ class BondList extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <View style={{
-          height: 50,
-          borderBottomColor: monoTheme.COLORS.NEUTRAL,
-          borderBottomWidth: 1,
-          justifyContent: 'center',
-        }}>
-          <Text style={{
-            color: '#ccc',
-            fontSize: 24,
-            fontWeight: '700',
-            textAlign: 'center'
-          }}>
-            Ринок ОВДП
-          </Text>
-        </View>
+        <ScreenTitle title="Ринок ОВДП" />
         <View style={styles.innerPadding}>
           <FlatList
             data={ovdpList.map(item => ({
@@ -74,6 +61,14 @@ const styles = StyleSheet.create({
   },
   innerPadding: {
     paddingHorizontal: monoTheme.SIZES.BASE,
+  },
+  titleText: {
+    color: monoTheme.COLORS.PRIMARY,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    padding: 8,
+    fontSize: monoTheme.SIZES.TITLE,
   },
 });
 

@@ -1,95 +1,145 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, RefreshControl, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  RefreshControl,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 import { getOrderListAction } from '../state/actions/getOrderList';
-import { monoTheme } from '../constants';
-import Loading from "../patch/Loading";
+import { monoTheme, ORDER_STATUS, ORDER_DIRECTIONS, ICON_STATUS } from '../constants';
+import { getDate } from '../utils';
+import OrderCard from '../components/Card';
+import EmptyCard from '../components/EmptyCard';
+import ScreenTitle from '../components/ScreenTitle';
 
 const { height, width } = Dimensions.get('window');
 
 class OrderList extends Component {
   componentDidMount() {
-    this.props.getOrderListAction()
+    this.props.getOrderListAction({});
   }
+
+  handleFilterList = (mode) => {
+      this.props.getOrderListAction({ mode });
+  };
 
   render() {
     const { mono, getOrderListAction } = this.props;
+    const { mode } = mono.orders;
+
     return (
       <View style={styles.container}>
-        <View style={{backgroundColor: 'transparent'}}>
-          <Text style={{
-            color: '#ccc',
-            textAlign: 'center',
-            padding: 8,
-            fontSize: 24,
-            borderWidth: 1,
-            borderBottomColor: '#ccc'
-          }}>
-            Мої заявки
-          </Text>
+        <ScreenTitle title="Мої заявки" />
+        <View style={styles.tabContainer}>
+          <TouchableOpacity
+            style={{
+              ...styles.tab,
+              borderTopLeftRadius: 5,
+              borderBottomLeftRadius: 5,
+              borderLeftWidth: 2,
+              backgroundColor: monoTheme.COLORS[mode === ORDER_STATUS.ALL ? 'ACTIVE' : 'SECONDARY'],
+            }}
+            onPress={() => this.handleFilterList(ORDER_STATUS.ALL)}
+          >
+            <Entypo
+              style={{alignSelf: 'center'}}
+              name="list"
+              size={18}
+              color={monoTheme.COLORS[mode === ORDER_STATUS.ALL ? 'PRIMARY' : 'MONO']}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.tab,
+              backgroundColor: monoTheme.COLORS[mode === ORDER_STATUS.SUCCESS ? 'ACTIVE' : 'SECONDARY'],
+            }}
+            onPress={() => this.handleFilterList(ORDER_STATUS.SUCCESS)}
+          >
+            <Entypo
+              style={{alignSelf: 'center'}}
+              name="check"
+              size={18}
+              color={monoTheme.COLORS[mode === ORDER_STATUS.SUCCESS ? 'PRIMARY' : 'MONO']}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.tab,
+              backgroundColor: monoTheme.COLORS[mode === ORDER_STATUS.PENDING ? 'ACTIVE' : 'SECONDARY'],
+            }}
+            onPress={() => this.handleFilterList(ORDER_STATUS.PENDING)}
+          >
+            <Entypo
+              style={{alignSelf: 'center'}}
+              name="hour-glass"
+              size={18}
+              color={monoTheme.COLORS[mode === ORDER_STATUS.PENDING ? 'PRIMARY' : 'MONO']}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.tab,
+              borderTopRightRadius: 5,
+              borderBottomRightRadius: 5,
+              borderRightWidth: 2,
+              backgroundColor: monoTheme.COLORS[mode === ORDER_STATUS.CANCELED ? 'ACTIVE' : 'SECONDARY'],
+            }}
+            onPress={() => this.handleFilterList(ORDER_STATUS.CANCELED)}
+          >
+            <Entypo
+              style={{alignSelf: 'center'}}
+              name="block"
+              size={18}
+              color={monoTheme.COLORS[mode === ORDER_STATUS.CANCELED ? 'PRIMARY' : 'MONO']}
+            />
+          </TouchableOpacity>
         </View>
         <ScrollView
           contentContainerStyle={styles.scrollingContainer}
           refreshControl={
-            <RefreshControl refreshing={mono.orders.loading} onRefresh={e => getOrderListAction()} />
+            <RefreshControl
+              refreshing={mono.orders.loading}
+              colors={[monoTheme.COLORS.ACTIVE]}
+              progressBackgroundColor={monoTheme.COLORS.SECONDARY}
+              tintColor={monoTheme.COLORS.ACTIVE}
+              onRefresh={() => getOrderListAction({ mode })}
+            />
           }
         >
-          {mono.orders.loading ? (
-            <View style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignContent: 'center'
-            }}>
-              <Loading color={'#23D29C'} size={'small'}/>
-            </View>
-          ) : (
-            <View style={{flex: 1, padding: 12}}>
-              {mono.orders.list.map(order => {
+          {mono.orders.filteredList.length > 0 ? (
+            <Fragment>
+              {mono.orders.filteredList.map(order => {
                 return (
-                  <View key={order.id} style={{
-                    //backgroundColor: '#282828',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    borderBottomColor: '#ccc',
-                    borderWidth: 1,
-                    paddingBottom: 8
-                  }}>
-                    <View>
-                      <Text style={{color: "#f2f2f2", fontSize: 18, marginRight: 8}}>
-                        {order.cpcode}
-                      </Text>
-                    </View>
-                    <View style={{width: 50}}>
-                      <Text style={{
-                        color: order.flag === 'sell' ? "red" : "green",
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase'
-
-                      }}>
-                        {order.flag}
-                      </Text>
-                    </View>
-                    <View style={{flex: 1}}>
-                      <Text style={{color: "#f2f2f2", textAlign: 'right'}}>
-                        Ціна {order.price} грн
-                      </Text>
-                      <Text style={{color: monoTheme.COLORS.ACTIVE, textAlign: 'right'}}>
-                        Статус {order.status === 'pending' ? 'В ожидании': 'Исполнен'}
-                      </Text>
-                      <Text style={{color: "#f2f2f2", textAlign: 'right'}}>
-                        Кількість {order.count}
-                      </Text>
-                      <Text style={{color: "#f2f2f2", textAlign: 'right'}}>
-                        Сума заявки {order.count * order.price} грн
-                      </Text>
-                    </View>
-                  </View>
+                  <OrderCard
+                    key={order.id}
+                    item={order}
+                    fields={[
+                      {
+                        label: 'Створено'.toUpperCase(),
+                        value: getDate({ separator: '.', date: order.createdAt }),
+                      },
+                      {
+                        label: 'Напрямок'.toUpperCase(),
+                        value: ORDER_DIRECTIONS[order.flag].toUpperCase(),
+                        color: monoTheme.COLORS[order.flag === ORDER_DIRECTIONS.sell ? 'MONO' : 'ACTIVE'],
+                      },
+                    ]}
+                    isPortfolio={false}
+                    iconData={{
+                      backgroundColor: ICON_STATUS[order.status.toUpperCase()].color,
+                      name: ICON_STATUS[order.status.toUpperCase()].icon,
+                    }}
+                  />
                 )
               })}
-            </View>
+            </Fragment>
+          ) : (
+            <EmptyCard title="Список порожній" />
           )}
         </ScrollView>
       </View>
@@ -102,33 +152,35 @@ const styles = StyleSheet.create({
     paddingTop: monoTheme.SIZES.BASE * 3,
     flex: 1,
     width: width,
-    // backgroundColor: 'green',
   },
   scrollingContainer: {
-    //maxHeight: (height - (monoTheme.SIZES.BASE * 3)) * 0.8,
+    maxHeight: (height - (monoTheme.SIZES.BASE * 3)) * 0.8,
     width: width,
     height: height,
-    //flexGrow: 1,
-    //backgroundColor: 'pink',
+    padding: monoTheme.SIZES.BASE,
   },
   tabContainer: {
-    width: width - (monoTheme.SIZES.BASE * 2),
+    width: width,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 56,
+    paddingHorizontal: monoTheme.SIZES.BASE,
   },
   tab: {
-    borderWidth: 1,
+    borderBottomWidth: 2,
+    borderTopWidth: 2,
     borderColor: monoTheme.COLORS.ACTIVE,
-    borderRadius: 5,
     padding: monoTheme.SIZES.BASE / 2,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tabText: {
     color: monoTheme.COLORS.PRIMARY,
-    fontSize: 16,
-  }
+    fontSize: monoTheme.SIZES.TITLE,
+  },
 });
 
 export default connect(state => state, {

@@ -14,8 +14,9 @@ import BondSingle from '../screens/BondSingle';
 import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
 
+import BrokerActiveBadge from '../components/Badge';
+
 import monoTheme from '../constants/Theme';
-import BankId from "../screens/BankId";
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
@@ -109,7 +110,7 @@ function TabsStackScreen() {
             </View>
         }}
       />
-     {/* <TabsStack.Screen
+      <TabsStack.Screen
         name={BOTTOM_TABS.PORTFOLIO_TAB}
         component={Portfolio}
         options={{
@@ -133,7 +134,7 @@ function TabsStackScreen() {
               />
             </View>
         }}
-      />*/}
+      />
       <TabsStack.Screen
         name={BOTTOM_TABS.ACCOUNT_TAB}
         component={Account}
@@ -146,6 +147,7 @@ function TabsStackScreen() {
               }}>
                 Рахунок
               </Text>
+              <BrokerActiveBadge />
             </View>
           ),
           tabBarIcon: ({focused}) =>

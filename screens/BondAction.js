@@ -127,7 +127,7 @@ class BondAction extends Component {
           backIcon={<FontAwesome
             style={{ alignSelf:'center' }}
             name="long-arrow-left"
-            size={24}
+            size={40}
             color={monoTheme.COLORS.PRIMARY}
             onPress={() => navigation.navigate('BondInfoModal')}
           />}
@@ -173,7 +173,6 @@ class BondAction extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: monoTheme.SIZES.BASE * 2,
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: monoTheme.COLORS.SECONDARY,
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
     marginTop: monoTheme.SIZES.BASE,
     marginBottom: monoTheme.SIZES.BASE * 3,
     width: width - monoTheme.SIZES.BASE * 2,
-    height: 48,
+    height: 40,
     borderRadius: 5,
     backgroundColor: monoTheme.COLORS.MONO,
   },

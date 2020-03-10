@@ -30,7 +30,7 @@ class SignIn extends Component {
 
   render() {
     const {auth} = this.props.mono;
-    //console.log(auth);
+
     return(
       <View style={{flex:1, backgroundColor: '#000'}}>
         <KeyboardAwareScrollView
@@ -40,7 +40,7 @@ class SignIn extends Component {
 
             {auth.loading ? (
               <Loading
-                color={'#3ECD9A'}
+                color={monoTheme.COLORS.ACTIVE}
                 size={'small'}
               />
             ) : (
@@ -94,7 +94,7 @@ class SignIn extends Component {
                         borderRadius: 8,
                         marginTop: 40,
                         height: 65,
-                        backgroundColor: this.state.phoneValid ? "#23D29C" : "#0C0C0C",
+                        backgroundColor: this.state.phoneValid ? monoTheme.COLORS.ACTIVE : "#0C0C0C",
                         justifyContent: "center",
                         alignContent: "center",
                         alignItems: "center",
@@ -150,7 +150,7 @@ class SignIn extends Component {
                       ref="codeInputRef"
                       keyboardType="numeric"
                       codeLength={6}
-                      activeColor={"#23D29C"}
+                      activeColor={monoTheme.COLORS.ACTIVE}
                       ignoreCase={true}
                       className='border-circle'
                       secureTextEntry={true}
@@ -175,7 +175,7 @@ class SignIn extends Component {
                       <View style={{
                         width: Dimensions.get('window').width,
                         height: 60,
-                        backgroundColor: this.state.codeValid ? "#23D29C" : "#2b313f",
+                        backgroundColor: this.state.codeValid ? monoTheme.COLORS.ACTIVE : "#2b313f",
                         justifyContent: "center",
                         alignContent: "center",
                         alignItems: "center",

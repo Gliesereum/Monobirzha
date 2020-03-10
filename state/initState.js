@@ -1,3 +1,5 @@
+import { ORDER_STATUS } from '../constants';
+
 export const initState = {
   root: {
     loading: true,
@@ -42,7 +44,14 @@ export const initState = {
   },
   orders: {
     list: [],
+    filteredList: [],
     error: null,
     loading: false,
-  }
+    mode: ORDER_STATUS.ALL,
+  },
+  portfolio: {
+    list: [],
+    error: null,
+    loading: false,
+  },
 };

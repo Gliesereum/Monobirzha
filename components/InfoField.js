@@ -7,6 +7,7 @@ const { width } = Dimensions.get('window');
 export default function InfoField({
   label,
   value,
+  containerStyle,
   labelBoxStyle,
   valueBoxStyle,
   labelTextStyle,
@@ -17,10 +18,10 @@ export default function InfoField({
   onFieldChange,
 }) {
   return (
-    <View style={{ ...styles.container, borderBottomWidth: isFieldDynamic ? 0 : 1 }}>
+    <View style={{ ...styles.container, ...containerStyle, height: isFieldDynamic ? 40 : 28 }}>
       <View style={{ ...styles.labelBox, ...labelBoxStyle}}>
         <Text style={{ ...styles.labelText, ...labelTextStyle }}>
-          {label}
+          {label.toUpperCase()}
         </Text>
       </View>
       <View style={{ ...styles.valueBox, ...valueBoxStyle }}>
@@ -47,15 +48,11 @@ export default function InfoField({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: monoTheme.COLORS.NEUTRAL,
-    height: 40,
-    //padding: monoTheme.SIZES.BASE,
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingHorizontal: monoTheme.SIZES.BASE / 2,
     marginBottom: 4,
+    height: 40,
   },
   labelBox: {
 
@@ -79,7 +76,7 @@ const styles = StyleSheet.create({
     color: monoTheme.COLORS.SECONDARY,
     backgroundColor: monoTheme.COLORS.PRIMARY,
     width: (width - monoTheme.SIZES.BASE) * 0.5,
-    height: 32,
-    fontSize: 16,
+    height: monoTheme.SIZES.TITLE * 2,
+    fontSize: monoTheme.SIZES.TITLE,
   },
 });

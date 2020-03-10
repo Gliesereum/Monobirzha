@@ -102,25 +102,24 @@ export default createReducer({
   [Types.single.FINISH]:
     draft => draft.single.loading = false,
 
-  // ---------------  ORDERS  -----------------//
+  // ---------------  ORDERS ACTION -----------------//
 
-  // [Types.orders.START_ACTION]:
-  //   draft => draft.orders.loading = true,
-  //
-  // [Types.orders.SUCCESS_ACTION]:(draft, payload) => {
-  //   draft.orders.list = draft.orders.list.concat(payload);
-  //   //draft.orders.list = draft.orders.list.concat(payload);
-  //   draft.orders.error = undefined;
-  //   draft.single.actionError = undefined;
-  // },
-  //
-  // [Types.orders.ERROR_ACTION]: (draft, payload) => {
-  //   draft.orders.error = payload;
-  //   draft.single.actionError = payload;
-  // },
-  //
-  // [Types.orders.FINISH_ACTION]:
-  //   draft => draft.orders.loading = false,
+  [Types.orders.START_ACTION]:
+    draft => draft.orders.loading = true,
+
+  [Types.orders.SUCCESS_ACTION]:(draft, payload) => {
+    draft.orders.list = draft.orders.list.concat(payload);
+    draft.orders.error = undefined;
+    draft.single.actionError = undefined;
+  },
+
+  [Types.orders.ERROR_ACTION]: (draft, payload) => {
+    draft.orders.error = payload;
+    draft.single.actionError = payload;
+  },
+
+  [Types.orders.FINISH_ACTION]:
+    draft => draft.orders.loading = false,
 
   // ---------------  ORDERS  -----------------//
 
@@ -128,8 +127,33 @@ export default createReducer({
 
   [Types.orders.SUCCESS_LIST]:(draft, payload) => {
     draft.orders.list = payload;
+    draft.orders.filteredList = payload;
   },
 
+  [Types.orders.ERROR_ACTION]: (draft, payload) =>
+    draft.orders.error = payload,
+
   [Types.orders.FINISH_LIST]: draft => draft.orders.loading = false,
+
+  [Types.orders.CHANGE_STATUS_MODE]: (draft, payload) => draft.orders.mode = payload,
+
+  [Types.orders.SUCCESS_FILTER_LIST]: (draft, payload) => {
+    if (payload.mode === 'all') {
+      return draft.orders.filteredList = draft.orders.list;
+    }
+    draft.orders.filteredList = draft.orders.list.filter(item => item.status === payload.mode);
+  },
+
+  // ---------------  PORTFOLIO LIST  -----------------//
+  [Types.portfolio.START_LIST]: draft => draft.portfolio.loading = true,
+
+  [Types.portfolio.SUCCESS_LIST]: (draft, payload) => {
+    draft.portfolio.list = payload;
+  },
+
+  [Types.portfolio.ERROR_LIST]: (draft, payload) =>
+    draft.portfolio.error = payload,
+
+  [Types.portfolio.FINISH_LIST]: draft => draft.portfolio.loading = false,
 
 }, initState);

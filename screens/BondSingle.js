@@ -6,9 +6,9 @@ import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
 import Loading from '../patch/Loading';
 import monoTheme from '../constants/Theme';
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class BondSingle extends Component {
   handleBuyBond = () => {
@@ -27,14 +27,16 @@ class BondSingle extends Component {
     if (index < 0) return null;
     const { bond } = this.props.mono.single;
     const payment = bond.payments[index];
-    if (payment.pay_type === 1) {
+    if (payment.pay_type === '1') {
       const dateElem = payment.pay_date.split('.');
       const dateNow = new Date();
       const diffDatesInMS = dateNow - new Date(+dateElem[2], +dateElem[1] - 1, +dateElem[0]);
       const diffDatesInDays = diffDatesInMS / 1000 / 60 / 60 / 24;
-      return Math.floor(diffDatesInDays);
+      if (diffDatesInDays < 0) return this.getNcd(index - 1);
+
+      return (Math.floor(diffDatesInDays) * payment.pay_val/(365 / 2)).toFixed(6);
     } else {
-      this.getNcd(index - 1)
+      return this.getNcd(index - 1)
     }
   };
 
@@ -47,7 +49,7 @@ class BondSingle extends Component {
         {
           loading ? (
             <Loading
-              color={'#3ECD9A'}
+              color={monoTheme.COLORS.ACTIVE}
               size={'small'}
             />
           ) : (
@@ -59,7 +61,7 @@ class BondSingle extends Component {
                   <Ionicons
                     style={{ alignSelf:'center' }}
                     name="ios-close-circle-outline"
-                    size={44}
+                    size={40}
                     color={monoTheme.COLORS.MONO}
                     onPress={() => navigation.navigate('LIST_TAB')}
                   />
@@ -91,7 +93,7 @@ class BondSingle extends Component {
                   label="Процентна ставка"
                 />
                 <InfoField
-                  value={this.getNcd(bond.payments ? bond.payments.length - 1 : -1)}
+                  value={this.getNcd((bond.payments && bond.payments.length > 0) ? bond.payments.length - 1 : -1)}
                   label={"НКД"}
                 />
                 <InfoField
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: (width - monoTheme.SIZES.BASE * 3) / 2,
     justifyContent: 'center',
-    height: 48,
+    height: 40,
     borderRadius: 5,
     backgroundColor: monoTheme.COLORS.MONO,
   },

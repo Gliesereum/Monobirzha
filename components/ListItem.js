@@ -54,7 +54,7 @@ export default function ListItem({ item, onPressItem, onElectItem }) {
         <Ionicons
           style={{ alignSelf:'center' }}
           name={item.isFavorite ? 'ios-star' : 'ios-star-outline'}
-          size={22}
+          size={24}
           color={monoTheme.COLORS[item.isFavorite ? 'ACTIVE' : 'PRIMARY']}
         />
       </TouchableOpacity>
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 0,
-    //padding: monoTheme.SIZES.BASE,
     borderWidth: 2,
     borderBottomColor: monoTheme.COLORS.NEUTRAL,
   },
@@ -79,15 +78,14 @@ const styles = StyleSheet.create({
     width: width - (monoTheme.SIZES.BASE * 2) - (width * 0.2),
   },
   infoTitle: {
-    //color: monoTheme.COLORS.PRIMARY,
     color: monoTheme.COLORS.MONO,
-    fontSize: 22,
+    fontSize: monoTheme.SIZES.TITLE,
     marginBottom: 2,
     fontWeight: 'bold'
   },
   infoDesc: {
     color: monoTheme.COLORS.PRIMARY,
-    fontSize: 12,
+    fontSize: monoTheme.SIZES.FONT,
     marginBottom: 2,
   },
   startDateBox: {
@@ -97,12 +95,12 @@ const styles = StyleSheet.create({
   startDateLabel: {
     color: monoTheme.COLORS.PRIMARY,
     lineHeight: 16,
-    fontSize: 12,
+    fontSize: monoTheme.SIZES.FONT,
   },
   startDateValue: {
     color: monoTheme.COLORS.ACTIVE,
     lineHeight: 16,
-    fontSize: 14,
+    fontSize: monoTheme.SIZES.FONT,
     marginLeft: 4,
     fontWeight: 'bold'
   },
@@ -113,12 +111,12 @@ const styles = StyleSheet.create({
   aukProcLabel: {
     color: monoTheme.COLORS.PRIMARY,
     lineHeight: 16,
-    fontSize: 12,
+    fontSize: monoTheme.SIZES.FONT,
   },
   aukProcValue: {
     color: monoTheme.COLORS.ACTIVE,
     lineHeight: 16,
-    fontSize: 12,
+    fontSize: monoTheme.SIZES.FONT,
     marginLeft: 4,
     fontWeight: 'bold'
   },
