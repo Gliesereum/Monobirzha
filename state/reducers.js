@@ -123,26 +123,49 @@ export default createReducer({
 
   // ---------------  ORDERS  -----------------//
 
-  [Types.orders.START_LIST]: draft => draft.orders.loading = true,
+  // full list
+  [Types.orders.START_FULL_LIST]: draft => draft.orders.fullList.loading = true,
 
-  [Types.orders.SUCCESS_LIST]:(draft, payload) => {
-    draft.orders.list = payload;
-    draft.orders.filteredList = payload;
-  },
+  [Types.orders.SUCCESS_FULL_LIST]:(draft, payload) =>
+    draft.orders.fullList.list = payload,
 
-  [Types.orders.ERROR_ACTION]: (draft, payload) =>
-    draft.orders.error = payload,
+  [Types.orders.ERROR_FULL_LIST]: (draft, payload) =>
+    draft.orders.fullList.error = payload,
 
-  [Types.orders.FINISH_LIST]: draft => draft.orders.loading = false,
+  [Types.orders.FINISH_FULL_LIST]: draft => draft.orders.fullList.loading = false,
 
-  [Types.orders.CHANGE_STATUS_MODE]: (draft, payload) => draft.orders.mode = payload,
+  // success list
+  [Types.orders.START_SUCCESS_LIST]: draft => draft.orders.successList.loading = true,
 
-  [Types.orders.SUCCESS_FILTER_LIST]: (draft, payload) => {
-    if (payload.mode === 'all') {
-      return draft.orders.filteredList = draft.orders.list;
-    }
-    draft.orders.filteredList = draft.orders.list.filter(item => item.status === payload.mode);
-  },
+  [Types.orders.SUCCESS_SUCCESS_LIST]:(draft, payload) =>
+    draft.orders.successList.list = payload,
+
+  [Types.orders.ERROR_SUCCESS_LIST]: (draft, payload) =>
+    draft.orders.successList.error = payload,
+
+  [Types.orders.FINISH_SUCCESS_LIST]: draft => draft.orders.successList.loading = false,
+
+  // pending list
+  [Types.orders.START_PENDING_LIST]: draft => draft.orders.pendingList.loading = true,
+
+  [Types.orders.SUCCESS_PENDING_LIST]:(draft, payload) =>
+    draft.orders.pendingList.list = payload,
+
+  [Types.orders.ERROR_PENDING_LIST]: (draft, payload) =>
+    draft.orders.pendingList.error = payload,
+
+  [Types.orders.FINISH_PENDING_LIST]: draft => draft.orders.pendingList.loading = false,
+
+  // canceled list
+  [Types.orders.START_CANCELED_LIST]: draft => draft.orders.canceledList.loading = true,
+
+  [Types.orders.SUCCESS_CANCELED_LIST]:(draft, payload) =>
+    draft.orders.canceledList.list = payload,
+
+  [Types.orders.ERROR_CANCELED_LIST]: (draft, payload) =>
+    draft.orders.canceledList.error = payload,
+
+  [Types.orders.FINISH_CANCELED_LIST]: draft => draft.orders.canceledList.loading = false,
 
   // ---------------  PORTFOLIO LIST  -----------------//
   [Types.portfolio.START_LIST]: draft => draft.portfolio.loading = true,

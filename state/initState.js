@@ -43,10 +43,26 @@ export const initState = {
     error: null
   },
   orders: {
-    list: [],
-    filteredList: [],
-    error: null,
-    loading: false,
+    fullList: {
+      loading: false,
+      error: null,
+      list: [],
+    },
+    successList:{
+      loading: false,
+      error: null,
+      list: [],
+    },
+    pendingList:{
+      loading: false,
+      error: null,
+      list: [],
+    },
+    canceledList:{
+      loading: false,
+      error: null,
+      list: [],
+    },
     mode: ORDER_STATUS.ALL,
   },
   portfolio: {

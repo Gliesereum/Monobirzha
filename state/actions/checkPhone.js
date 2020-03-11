@@ -18,33 +18,13 @@ export function verifyCode(phone, code) {
         payload: result
       });
 
-      //dispatch({type: Types.auth.START_BROKER_ACCOUNT});
-
       const account = await sdk.api.getAccountInfo(result.response.legal_token);
-
-      console.log(account);
-
-      /*if(account){
-        await dispatch({
-          type: Types.auth.ACCOUNT,
-          payload: {
-            brokerId: account.response.brokerId,
-            brokerAccount: account.response.brokerAccount
-          }
-        });
-      }*/
 
       await setTimeout(async () => {
         await dispatch({
           type: Types.auth.FINISH_VERIFY_CODE
         });
       }, 800)
-
-      /*await setTimeout(async () => {
-        await dispatch({
-          type: Types.auth.FINISH_BROKER_ACCOUNT
-        });
-      }, 1800)*/
     } catch (e) {
       dispatch({
         type: Types.auth.ERROR_VERIFY_CODE,

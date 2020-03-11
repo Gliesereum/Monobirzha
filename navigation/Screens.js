@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { View, Text } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 
 import Portfolio from '../screens/Portfolio';
 import Account from '../screens/Account';
 import BondList from '../screens/BondList';
-import OrderList from '../screens/OrderList';
 import BondSingle from '../screens/BondSingle';
 import BondAction from '../screens/BondAction';
 import SignIn from '../screens/SignIn';
+import OrderListFull from '../screens/OrderListFull';
+import OrderListSuccess from '../screens/OrderListSuccess';
+import OrderListPending from '../screens/OrderListPending';
+import OrderListCanceled from '../screens/OrderListCanceled';
 
 import BrokerActiveBadge from '../components/Badge';
+import TopBar from '../components/OrderTopTabNavigator';
 
 import monoTheme from '../constants/Theme';
+import { ORDER_STATUS } from '../constants';
 
 const BOTTOM_TABS = {
   LIST_TAB: 'LIST_TAB',
@@ -40,14 +46,43 @@ function SignInNavigation() {
   );
 }
 
+const OrderTabStack = createMaterialTopTabNavigator();
+
+function OrderTabsScreen() {
+  return (
+    <Fragment>
+      <OrderTabStack.Navigator
+        initialRouteName={ORDER_STATUS.all}
+        backBehavior="history"
+        tabBar={props => <TopBar {...props}/>}
+      >
+        <OrderTabStack.Screen
+          name={ORDER_STATUS.all}
+          component={OrderListFull}
+        />
+        <OrderTabStack.Screen
+          name={ORDER_STATUS.success}
+          component={OrderListSuccess}
+        />
+        <OrderTabStack.Screen
+          name={ORDER_STATUS.pending}
+          component={OrderListPending}
+        />
+        <OrderTabStack.Screen
+          name={ORDER_STATUS.canceled}
+          component={OrderListCanceled}
+        />
+      </OrderTabStack.Navigator>
+    </Fragment>
+  )
+}
+
 const TabsStack = createBottomTabNavigator();
 
 function TabsStackScreen() {
   return (
     <TabsStack.Navigator
-      initialRouteName={
-        BOTTOM_TABS.ACCOUNT_TAB
-      }
+      initialRouteName={BOTTOM_TABS.ACCOUNT_TAB}
       backBehavior="history"
       tabBarOptions={{
         labelStyle: {
@@ -87,7 +122,7 @@ function TabsStackScreen() {
       />
       <TabsStack.Screen
         name={BOTTOM_TABS.ORDERS_TAB}
-        component={OrderList}
+        component={OrderTabsScreen}
         options={{
           tabBarLabel: ({focused}) => (
             <View>

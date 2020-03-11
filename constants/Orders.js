@@ -1,8 +1,8 @@
 const ORDER_STATUS = {
-  PENDING: 'pending',
-  SUCCESS: 'success',
-  CANCELED: 'canceled',
-  ALL: 'all',
+  pending: 'pending',
+  success: 'success',
+  canceled: 'canceled',
+  all: 'all',
 };
 
 const ORDER_DIRECTIONS = {
@@ -11,18 +11,10 @@ const ORDER_DIRECTIONS = {
 };
 
 const ICON_STATUS = {
-  SUCCESS: {
-    color: 'black',
-    icon: 'check',
-  },
-  PENDING: {
-    color: 'black',
-    icon: 'hour-glass',
-  },
-  CANCELED: {
-    color: 'black',
-    icon: 'block',
-  }
+  all: 'list',
+  success: 'check',
+  pending: 'hour-glass',
+  canceled: 'block',
 };
 
 export {

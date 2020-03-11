@@ -13,7 +13,7 @@ import InfoField from './InfoField';
 
 const { width } = Dimensions.get('window');
 
-export default function Card({ item, fields, isPortfolio, iconData, onSellAction }) {
+export default function Card({ item, fields, isPortfolio, iconData, onSellAction = () => {} }) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -24,7 +24,7 @@ export default function Card({ item, fields, isPortfolio, iconData, onSellAction
         </View>
         {
           isPortfolio ? (
-            <TouchableOpacity onPress={onSellAction && onSellAction === typeof 'function' && onSellAction}>
+            <TouchableOpacity onPress={onSellAction}>
               <View style={styles.buttonBox}>
                 <Text style={styles.buttonText}>Продати</Text>
               </View>
@@ -51,8 +51,8 @@ export default function Card({ item, fields, isPortfolio, iconData, onSellAction
           fields.map(({ label, value, color = monoTheme.COLORS.ACTIVE }) => (
             <InfoField
               key={label}
-              value={value}
-              label={label}
+              value={value.toUpperCase()}
+              label={label.toUpperCase()}
               valueTextStyle={{
                 fontSize: monoTheme.SIZES.FONT,
                 fontWeight: 'bold',

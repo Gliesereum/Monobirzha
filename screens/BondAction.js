@@ -90,6 +90,7 @@ class BondAction extends Component {
       flag: 'sell',
       count: numberOfBonds,
       price: priceOfBond,
+      id: bond.id,
     });
     AlertOnPress({ isError: actionError, isSellMode: true, numberOfBonds, priceOfBond, sumPrice, navigation });
   };
@@ -104,6 +105,7 @@ class BondAction extends Component {
       flag: 'buy',
       count: numberOfBonds,
       price: priceOfBond,
+      id: bond.id,
     });
     AlertOnPress({ isError: actionError, isSellMode: false, numberOfBonds, priceOfBond, sumPrice, navigation });
   };

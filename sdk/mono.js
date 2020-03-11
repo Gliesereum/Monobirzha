@@ -23,8 +23,9 @@ class MonoSDK {
       GET_OVDP_SINGLE: `${this.config.server}/api/v1/patch/ovdp/details/`,
       CREATE_ORDER: `${this.config.server}/api/v1/patch/order/create`,
       GET_ORDER_LIST: `${this.config.server}/api/v1/patch/order/list`,
+      GET_FILTERED_ORDER_LIST: `${this.config.server}/api/v1/patch/order/list?status=`,
       GET_SUCCESS_ORDER_LIST: `${this.config.server}/api/v1/patch/order/list?status=success`,
-    }
+    };
 
     this.api = {
       statusApi: async () =>
@@ -53,6 +54,14 @@ class MonoSDK {
           "get",
           undefined,
           token
+        ),
+
+      getFilteredOrderList: async (token, mode) =>
+        await this._fetchServer(
+          this.urls.GET_FILTERED_ORDER_LIST + mode,
+          "get",
+          undefined,
+          token,
         ),
 
       getSuccessOrderList: async (token) =>

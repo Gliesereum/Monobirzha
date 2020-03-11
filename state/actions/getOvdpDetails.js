@@ -1,7 +1,7 @@
 import {Types} from "../types";
 import sdk from "../../sdk";
 
-export function getOvdpDetails({ id }) {
+function getOvdpDetails({ id }) {
   return async dispatch => {
     dispatch({ type: Types.single.START });
     try {
@@ -26,3 +26,17 @@ export function getOvdpDetails({ id }) {
     }
   }
 }
+
+function getSingleOvdp({ ovdp }) {
+  return dispatch => {
+    dispatch({
+      type: Types.single.SUCCESS,
+      payload: ovdp,
+    });
+  }
+}
+
+export {
+  getOvdpDetails,
+  getSingleOvdp,
+};

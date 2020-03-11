@@ -37,7 +37,7 @@ export function requestBrokerAccount() {
       const legal = await sdk.storage.getStorage('LegalToken')
       const account = await sdk.api.requestBrokerAcc(legal)
 
-      console.log(account);
+      // console.log(account);
 
       await dispatch({
         type: Types.auth.SUCCESS_BROKER_ACCOUNT,

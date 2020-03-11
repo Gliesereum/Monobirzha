@@ -1,11 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView,StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import InfoField from '../components/InfoField';
 import TitleField from '../components/TitleField';
 import Loading from '../patch/Loading';
 import monoTheme from '../constants/Theme';
+import { getNcd } from '../utils';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
@@ -21,23 +29,6 @@ class BondSingle extends Component {
     const { navigation } = this.props;
 
     navigation.navigate('BondActionModal', { isSellMode: true });
-  };
-
-  getNcd = (index) => {
-    if (index < 0) return null;
-    const { bond } = this.props.mono.single;
-    const payment = bond.payments[index];
-    if (payment.pay_type === '1') {
-      const dateElem = payment.pay_date.split('.');
-      const dateNow = new Date();
-      const diffDatesInMS = dateNow - new Date(+dateElem[2], +dateElem[1] - 1, +dateElem[0]);
-      const diffDatesInDays = diffDatesInMS / 1000 / 60 / 60 / 24;
-      if (diffDatesInDays < 0) return this.getNcd(index - 1);
-
-      return (Math.floor(diffDatesInDays) * payment.pay_val/(365 / 2)).toFixed(6);
-    } else {
-      return this.getNcd(index - 1)
-    }
   };
 
   render() {
@@ -93,7 +84,7 @@ class BondSingle extends Component {
                   label="Процентна ставка"
                 />
                 <InfoField
-                  value={this.getNcd((bond.payments && bond.payments.length > 0) ? bond.payments.length - 1 : -1)}
+                  value={getNcd(bond.payments)}
                   label={"НКД"}
                 />
                 <InfoField

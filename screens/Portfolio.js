@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 
 import { getPortfolioList } from '../state/actions/getPortfolioList';
-import { monoTheme, ORDER_DIRECTIONS } from '../constants';
+import { getSingleOvdp } from '../state/actions/getOvdpDetails';
+import { monoTheme } from '../constants';
 import OrderCard from '../components/Card';
 import ScreenTitle from '../components/ScreenTitle';
 import EmptyCard from '../components/EmptyCard';
-import { getDate } from '../utils';
+import { getNcd } from '../utils';
 
 const { height, width } = Dimensions.get('window');
 
@@ -22,8 +23,11 @@ class Portfolio extends Component {
     this.props.getPortfolioList();
   }
 
-  handleSellBond = () => {
+  handleSellBond = (ovdp) => {
+    const { navigation, getSingleOvdp } = this.props;
 
+    getSingleOvdp({ ovdp });
+    navigation.navigate('BondActionModal', { isSellMode: true });
   };
 
   render() {
@@ -52,16 +56,16 @@ class Portfolio extends Component {
                     item={order}
                     fields={[
                       {
-                        label: 'НКД'.toUpperCase(),
-                        value: getDate({ separator: '.', date: order.createdAt }),
+                        label: 'НКД',
+                        value: getNcd(order.ovdp.payments),
                       },
                       {
-                        label: 'Дата погашення'.toUpperCase(),
-                        value: ORDER_DIRECTIONS[order.flag].toUpperCase(),
+                        label: 'Дата погашення',
+                        value: order.ovdp.pgs_date,
                       },
                     ]}
                     isPortfolio={true}
-                    onSellAction={this.handleSellBond}
+                    onSellAction={() => this.handleSellBond(order.ovdp)}
                   />
                 )
               })}
@@ -101,4 +105,5 @@ const styles = StyleSheet.create({
 
 export default connect(state => state, {
   getPortfolioList,
+  getSingleOvdp,
 })(Portfolio);
